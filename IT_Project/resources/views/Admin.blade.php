@@ -69,7 +69,7 @@
   <div class="sidebar d-flex flex-column p-3">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
       <i class="bi bi-bootstrap" style="font-size: 1.5rem;"></i>
-      <span class="fs-4 ms-2">Apotek Hafidzah</span>
+      <span class="fs-4 ms-2">Hafidzah</span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
