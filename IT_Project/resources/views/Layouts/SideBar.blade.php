@@ -37,7 +37,7 @@
     .profile {
       position: absolute;
       bottom: 20px;
-      width: 40%;
+      width: 90%;
       color: white;
       padding-left: 15px;
     }
@@ -64,53 +64,53 @@
   </style>
 </head>
 <body>
-    <div class=" d-flex flex-row">
-        <!-- Sidebar -->
+
+  <!-- Sidebar -->
   <div class="sidebar d-flex flex-column p-3">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
       <i class="bi bi-bootstrap" style="font-size: 1.5rem;"></i>
-      <span class="fs-4 ms-2">Hafidzah</span>
+      <span class="fs-4 ms-2">Sidebar</span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li>
-        <a href="{{ route('Beranda') }}" class="nav-link active">
+        <a href="#" class="nav-link active">
           <i class="bi bi-speedometer2"></i>
           Beranda
         </a>
       </li>
       <li>
-        <a href="{{ route('Admin') }}" class="nav-link">
+        <a href="#" class="nav-link">
           <i class="bi bi-people"></i>
           Admin
         </a>
       </li>
       <li>
-        <a href="{{ route('Akun') }}" class="nav-link">
+        <a href="#" class="nav-link">
           <i class="bi bi-bi bi-person-circle"></i>
           Akun
         </a>
       </li>
       <li>
-        <a href="{{ route('Karyawan') }}" class="nav-link">
+        <a href="#" class="nav-link">
           <i class="bi bi-people"></i>
           Karyawan
         </a>
       </li>
       <li>
-        <a href="{{ route('Penjualan') }}" class="nav-link">
+        <a href="#" class="nav-link">
           <i class="bi bi-table"></i>
           Penjualan
         </a>
       </li>
       <li>
-        <a href="{{ route('Produk') }}" class="nav-link">
+        <a href="#" class="nav-link">
           <i class="bi bi-grid"></i>
-          Produk
+          Products
         </a>
       </li>
       <li>
-        <a href="Laporan" class="nav-link">
+        <a href="#" class="nav-link">
           <i class="bi bi-journal"></i>
           Laporan
         </a>
@@ -132,14 +132,8 @@
       </div>
     </div>
   </div>
-  {{-- content --}}
-  <div class="container mt-5">
-    <h1 style="text-align: center">Halaman Beranda</h1>
-    <hr>
 
-  </div>
-
-    </div>
+  
 
   <!-- Bootstrap 5.3 JS Bundle with Popper -->
   <script src="{{ asset('js/scripts.js') }}"></script>

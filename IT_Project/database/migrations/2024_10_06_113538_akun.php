@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('akun', function (Blueprint $table) {
             $table->id('Id_Akun');
-            $table->string('Username');
+            $table->string('Username')->unique();
             $table->string('Password');
             $table->enum('level', ['admin', 'karyawan'])->default('karyawan');
             $table->timestamps();

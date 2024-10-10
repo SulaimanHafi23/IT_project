@@ -73,48 +73,48 @@
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
-      <li>
-        <a href="{{ route('Beranda') }}" class="nav-link active">
-          <i class="bi bi-speedometer2"></i>
-          Beranda
-        </a>
-      </li>
-      <li>
-        <a href="{{ route('Admin') }}" class="nav-link">
-          <i class="bi bi-people"></i>
-          Admin
-        </a>
-      </li>
-      <li>
-        <a href="{{ route('Akun') }}" class="nav-link">
-          <i class="bi bi-bi bi-person-circle"></i>
-          Akun
-        </a>
-      </li>
-      <li>
-        <a href="{{ route('Karyawan') }}" class="nav-link">
-          <i class="bi bi-people"></i>
-          Karyawan
-        </a>
-      </li>
-      <li>
-        <a href="{{ route('Penjualan') }}" class="nav-link">
-          <i class="bi bi-table"></i>
-          Penjualan
-        </a>
-      </li>
-      <li>
-        <a href="{{ route('Produk') }}" class="nav-link">
-          <i class="bi bi-grid"></i>
-          Produk
-        </a>
-      </li>
-      <li>
-        <a href="Laporan" class="nav-link">
-          <i class="bi bi-journal"></i>
-          Laporan
-        </a>
-      </li>
+        <li>
+            <a href="{{ route('Beranda') }}" class="nav-link">
+              <i class="bi bi-speedometer2"></i>
+              Beranda
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('Admin') }}" class="nav-link active">
+              <i class="bi bi-people"></i>
+              Admin
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('Akun') }}" class="nav-link">
+              <i class="bi bi-bi bi-person-circle"></i>
+              Akun
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('Karyawan') }}" class="nav-link">
+              <i class="bi bi-people"></i>
+              Karyawan
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('Penjualan') }}" class="nav-link">
+              <i class="bi bi-table"></i>
+              Penjualan
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('Produk') }}" class="nav-link">
+              <i class="bi bi-grid"></i>
+              Produk
+            </a>
+          </li>
+          <li>
+            <a href="Laporan" class="nav-link">
+              <i class="bi bi-journal"></i>
+              Laporan
+            </a>
+          </li>
     </ul>
     <hr><br>
     <hr style="margin-bottom: 0px;">
@@ -134,9 +134,9 @@
   </div>
   {{-- content --}}
   <div class="container mt-5">
-    <h1 style="text-align: center">Halaman Beranda</h1>
+    <h1 style="text-align: center">Halaman Admin</h1>
     <hr>
-
+      
   </div>
 
     </div>
