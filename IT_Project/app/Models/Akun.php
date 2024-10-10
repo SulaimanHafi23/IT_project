@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Admin;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Akun extends Model
 {
@@ -17,20 +18,26 @@ class Akun extends Model
 
     // Kolom-kolom yang dapat diisi secara massal
     protected $fillable = [
+        'Id_Akun',
         'Username',
         'Password',
         'level'
     ];
+    protected $hidden = [
+        'password',
+    ];
 
-    // Relasi dengan model Admin
-    public function admin()
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
     {
-        return $this->hasOne(Admin::class, 'Id_Akun', 'Id_Akun');
-    }
+        return [
+            'password' => 'hashed',
+        ];
 
-    // Relasi dengan model karyawan 
-    public function karyawan()
-    {
-        return $this->hasOne(Admin::class, 'Id_Akun', 'Id_Akun');
+        
     }
 }
