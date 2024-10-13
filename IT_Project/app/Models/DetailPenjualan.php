@@ -9,25 +9,16 @@ class DetailPenjualan extends Model
 {
     use HasFactory;
 
-    // Nama tabel yang terkait dengan model ini
     protected $table = 'detail_penjualan';
+    protected $primaryKey = 'Id_Detail_Penjualan';
 
-    // Primary key
-    protected $primaryKey = 'Id_DetailPenjualan';
-
-    // Kolom-kolom yang dapat diisi secara massal
     protected $fillable = [
         'Id_Produk',
+        'Id_Penjualan',
+        'Harga_Satuan',
         'Jumlah',
     ];
 
-    // Relasi dengan Produk
-    public function produk()
-    {
-        return $this->belongsTo(Produk::class, 'Id_Produk', 'Id_Produk');
-    }
-
-    // Relasi dengan Penjualan
     public function penjualan()
     {
         return $this->belongsTo(Penjualan::class, 'Id_Penjualan', 'Id_Penjualan');

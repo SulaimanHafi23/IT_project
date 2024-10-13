@@ -14,11 +14,6 @@
             @csrf
             <tr>
                 <td>
-                    <!-- ID Akun -->
-                    <div class="mb-3">
-                      <label for="id_akun" class="form-label">ID Akun</label>
-                      <input type="text" class="form-control" id="id_akun" name="id_akun" required>
-                    </div>
                     <div class="mb-3">
                       <label for="username" class="form-label">Username</label>
                       <input type="text" class="form-control" id="username" name="username" required>

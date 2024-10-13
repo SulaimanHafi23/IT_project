@@ -18,7 +18,6 @@ class Akun extends Model
 
     // Kolom-kolom yang dapat diisi secara massal
     protected $fillable = [
-        'Id_Akun',
         'Username',
         'Password',
         'level'

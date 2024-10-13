@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('penjualan', function (Blueprint $table) {
             $table->id('Id_Penjualan');
             $table->decimal('Total_Harga', 10, 2);
-            $table->string('Metode_Pembayaran');
+            $table->foreignId('Id_Karyawan')->nullable()->constrained('karyawan', 'Id_Karyawan')->onDelete('cascade');
             $table->date('Tanggal_Penjualan');
-            $table->foreignId('Id_Karyawan')->constrained('karyawan', 'Id_Karyawan')->onDelete('cascade'); // Foreign key
+            $table->string('Metode_Pembayaran');
             $table->timestamps();
         });
     }
