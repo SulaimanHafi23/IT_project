@@ -45,7 +45,7 @@
         <h1 style="text-align: center">Halaman Penjualan</h1>
         <hr>
         <div style="align-content: center">
-            <a href="{{ route('penjualan.create') }}" class="btn btn-primary mb-3">Tambah Penjualan</a>
+            <a href="{{ route('TambahPenjualan') }}" class="btn btn-primary mb-3">Tambah Penjualan</a>
 
             <table class="table table-bordered table-striped">
                 <thead class="table-light">
@@ -57,32 +57,32 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($penjualans->isEmpty())
-                        <tr>
-                            <td colspan="4" class="text-center">Tidak ada penjualan yang ditemukan</td>
-                        </tr>
-                    @else
-                        @foreach ($penjualans as $penjualan)
+                        @if ($penjualan->isEmpty())
                             <tr>
-                                <td>{{ $penjualan->Tanggal_Penjualan }}</td>
-                                <td>{{ $penjualan->Total_Harga }}</td>
-                                <td>{{ $penjualan->Metode_Pembayaran }}</td>
-                                <td>
-                                    <a href="{{ route('penjualan.show', $penjualan->Id_Penjualan) }}"
-                                        class="btn btn-info btn-sm">Detail</a>
-                                    <a href="{{ route('penjualan.edit', $penjualan->Id_Penjualan) }}"
-                                        class="btn btn-warning btn-sm">Edit</a>
-                                    <form action="{{ route('penjualan.destroy', $penjualan->Id_Penjualan) }}"
-                                        method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm"
-                                            onclick="return confirm('Apakah Anda yakin ingin menghapus penjualan ini?')">Hapus</button>
-                                    </form>
-                                </td>
+                                <td colspan="4" class="text-center">Tidak ada penjualan yang ditemukan</td>
                             </tr>
-                        @endforeach
-                    @endif
+                        @else
+                            @foreach ($penjualan as $pjln)
+                                <tr>
+                                    <td>{{ $pjln->Tanggal_Penjualan }}</td>
+                                    <td>{{ $pjln->Total_Harga }}</td>
+                                    <td>{{ $pjln->Metode_Pembayaran }}</td>
+                                    <td>
+                                        <a href="{{ route('DetailPenjualan', $pjln->Id_Penjualan) }}"
+                                            class="btn btn-info btn-sm">Detail</a>
+                                        <a href="{{ route('EditPenjualan', $pjln->Id_Penjualan) }}"
+                                            class="btn btn-warning btn-sm">Edit</a>
+                                        <form action="{{ route('DeletePenjualan', $pjln->Id_Penjualan) }}"
+                                            method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus penjualan ini?')">Hapus</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     @if (session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}

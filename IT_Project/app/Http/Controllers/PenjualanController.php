@@ -2,29 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
 use App\Models\DetailPenjualan;
-use Illuminate\Support\Facades\DB;
 
 class PenjualanController extends Controller
 {
     public function index()
 {
-    // Mengambil data penjualan dari model 'Penjualan'
-    $penjualans = Penjualan::all(); // Ambil semua data penjualan
+    $penjualan = Penjualan::all(); // Ambil semua data penjualan
 
-    // Kirim data tersebut ke view 'TampilPenjualan'
-    return view('Penjualan.TampilPenjualan', compact('penjualans'));
+    return view('Penjualan.TampilPenjualan')->with('penjualan', $penjualan);
+}
+
+    public function Tampil()
+{
+    $penjualan = Penjualan::get(); // Ambil semua data penjualan
+
+    return view('Penjualan.TampilPenjualan', compact('penjualan'));
 
 }
 
-    public function create()
+    public function Tambah()
     {
         return view('Penjualan.TambahPenjualan');
     }
 
-    public function store(Request $request)
+    public function Sumbit(Request $request)
 {
     try {
         // Validasi input (tanpa Id_Karyawan dan Id_Produk karena belum tersambung sebagai FK)
@@ -54,38 +59,38 @@ class PenjualanController extends Controller
             ]);
         }
 
-        return redirect()->route('penjualan.index')->with('success', 'Penjualan berhasil ditambahkan.');
-    } catch (\Exception $e) {
+        return redirect()->route('penjualan.TampilPenjualan')->with('success', 'Penjualan berhasil ditambahkan.');
+    } catch (Exception $e) {
         return back()->with('error', 'Error: ' . $e->getMessage());
     }
 }
 
 
 
-    public function show($id)
+    public function Detail($id)
     {
         $penjualan = Penjualan::findOrFail($id);
         $details = $penjualan->detailPenjualan;
         return view('Penjualan.DetailPenjualan', compact('penjualan', 'details'));
     }
 
-    public function edit($id)
+    public function Edit($id)
     {
         $penjualan = Penjualan::findOrFail($id);
         return view('Penjualan.EditPenjualan', compact('penjualan'));
     }
 
-    public function update(Request $request, $id)
+    public function Update(Request $request, $id)
     {
         $penjualan = Penjualan::findOrFail($id);
         $penjualan->update($request->all());
-        return redirect()->route('penjualan.index');
+        return redirect()->route('penjualan.TampilPenjualan');
     }
 
     public function destroy($id)
     {
         $penjualan = Penjualan::findOrFail($id);
         $penjualan->delete();
-        return redirect()->route('penjualan.index');
+        return redirect()->route('penjualan.TampilPenjualan');
     }
 }

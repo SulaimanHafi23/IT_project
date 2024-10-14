@@ -20,4 +20,10 @@ Route::post('/update-akun/{Id}', [AkunController::class, 'update'])->name('Updat
 Route::delete('/delete-akun/{id}', [AkunController::class, 'destroy'])->name('DeleteAkun');
 
 // Rute resource untuk penjualan
-Route::resource('penjualan', PenjualanController::class);
+Route::get('/penjulan', [PenjualanController::class, 'Tampil'])->name('TampilPenjualan');
+Route::get('/buat/penjualan', [PenjualanController::class, 'Tambah'])->name('TambahPenjualan');
+Route::post('/buat/penjualan', [PenjualanController::class, 'submit'])->name('BuatPenjualan');
+Route::get('/edit-penjualan/{id}', [PenjualanController::class, 'Edit'])->name('EditPenjualan');
+Route::get('/Detail-penjualan/{id}', [PenjualanController::class, 'Detail'])->name('DetailPenjualan');
+Route::post('/update-penjualan/{id}', [PenjualanController::class, 'update'])->name('UpdatePenjualan');
+Route::delete('/delete-penjualan/{id}', [PenjualanController::class, 'destroy'])->name('DeletePenjualan');

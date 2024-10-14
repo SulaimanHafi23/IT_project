@@ -5,7 +5,7 @@
         <h1 style="text-align: center">Tambah Penjualan</h1>
         <hr>
         <div style="align-content: center">
-            <form action="{{ route('penjualan.store') }}" method="POST">
+            <form action="{{ route('penjualan.TambahPenjualan') }}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label for="Total_Harga" class="form-label">Total Harga</label>
