@@ -36,7 +36,7 @@ class AkunController extends Controller
         // Membuat objek baru dari model Akun
         $akun = new Akun();
         $akun->username = $request->username;
-        $akun->password = bcrypt($request->password); // Mengenkripsi password
+        $akun->password = $request->password; // Mengenkripsi password
         $akun->level = $request->level;
         $akun->save(); // Menyimpan data ke database
 

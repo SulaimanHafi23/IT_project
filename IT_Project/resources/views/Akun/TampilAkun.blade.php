@@ -58,18 +58,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($akun as $no => $dataakun)
+                @foreach ($user as $no => $dataakun)
                     <tr>
                         <td>{{ $no + 1 }}</td>
                         <td>{{ $dataakun->Username }}</td>
-                        <td>{{ $dataakun->level }}</td>
+                        <td>{{ $dataakun->Level }}</td>
                         <td>
-                            <a href="{{ route('EditAkun', $dataakun->Id_Akun) }}">
+                            <a href="{{ route('EditAkun', $dataakun->Id_User) }}">
                                 <button type="button" class="btn btn-warning">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                             </a>
-                            <form action="{{ route('DeleteAkun', $dataakun->Id_Akun) }}" method="POST"
+                            <form action="{{ route('DeleteAkun', $dataakun->Id_User) }}" method="POST"
                                 style="display: inline-block;">
                                 @csrf
                                 @method('DELETE')
