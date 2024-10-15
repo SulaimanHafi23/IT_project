@@ -59,11 +59,3 @@
     </form>
 </div>
 @endsection
-<form action="{{ route('karyawan.update', $karyawan->id) }}" method="POST">
-    @csrf
-    @method('PUT')
-
-    <!-- Form fields here -->
-    
-    <button type="submit" class="btn btn-primary mt-3">Update Karyawan</button>
-</form>

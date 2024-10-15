@@ -35,7 +35,7 @@ class KaryawanController extends Controller
     public function edit($id)
 {
     $karyawan = Karyawan::findOrFail($id);
-    return view('karyawan.edit', compact('karyawan'));
+    return view('edit', compact('karyawan'));
 }
     
 public function update(Request $request, $id)
