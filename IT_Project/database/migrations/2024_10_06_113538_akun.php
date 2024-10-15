@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('Id_Akun');
             $table->string('Username')->unique();
             $table->string('Password');
-            $table->enum('level', ['admin', 'karyawan'])->default('karyawan');
+             
             $table->timestamps();
         });
     }

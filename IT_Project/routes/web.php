@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AkunController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PenjualanController;
 
 Route::view('/', 'Beranda')->name('Beranda'); 
@@ -10,14 +11,19 @@ Route::view('Penjualan.TampilPenjualan', 'Penjualan.TampilPenjualan')->name('Tam
 Route::view('Produk', 'Produk')->name('Produk');
 Route::view('Karyawan', 'Karyawan')->name('Karyawan');
 Route::view('Laporan', 'Laporan ')->name('Laporan');
+Route::view('Login', 'Login ')->name('login');
+
+// route untuk login 
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 // Rute untuk Akun
-Route::get('/akun', [AkunController::class, 'Tampil'])->name('TampilAkun');
-Route::get('/buat/akun', [AkunController::class, 'Tambah'])->name('TambahAkun');
-Route::post('/buat/akun', [AkunController::class, 'submit'])->name('buatAkun');
-Route::get('/edit-akun/{Id}', [AkunController::class, 'Edit'])->name('EditAkun');
-Route::post('/update-akun/{Id}', [AkunController::class, 'update'])->name('UpdateAkun');
-Route::delete('/delete-akun/{id}', [AkunController::class, 'destroy'])->name('DeleteAkun');
+Route::get('/akun', [UserController::class, 'Tampil'])->name('TampilAkun');
+Route::get('/buat/akun', [UserController::class, 'Tambah'])->name('TambahAkun');
+Route::post('/buat/akun', [UserController::class, 'submit'])->name('buatAkun');
+Route::get('/edit-akun/{Id}', [UserController::class, 'Edit'])->name('EditAkun');
+Route::post('/update-akun/{Id}', [UserController::class, 'update'])->name('UpdateAkun');
+Route::delete('/delete-akun/{id}', [UserController::class, 'destroy'])->name('DeleteAkun');
 
 // Rute resource untuk penjualan
 Route::get('/penjulan', [PenjualanController::class, 'Tampil'])->name('TampilPenjualan');

@@ -5,9 +5,9 @@
         <h1 style="text-align: center">Edit Penjualan</h1>
         <hr>    
         <div style="align-content: center">
-            <form action="{{ route('penjualan.update', $penjualan->Id_Penjualan) }}" method="POST">
+            <form action="{{ route('UpdatePenjualan', $penjualan->Id_Penjualan) }}" method="POST">
                 @csrf
-                @method('PUT')
+                @method('POST')
                 <div class="mb-3">
                     <label for="Total_Harga" class="form-label">Total Harga</label>
                     <input type="number" class="form-control" id="Total_Harga" name="Total_Harga"

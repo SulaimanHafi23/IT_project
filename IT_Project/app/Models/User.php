@@ -11,15 +11,20 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $table = 'user';
+
+    // Primary key yang digunakan dalam tabel
+    protected $primaryKey = 'Id_User';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'level',
-        'password',
+        'Username',
+        'Level',
+        'Password',
     ];
 
     /**
@@ -40,7 +45,6 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }

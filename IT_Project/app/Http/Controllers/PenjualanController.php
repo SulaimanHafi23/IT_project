@@ -6,6 +6,7 @@ use Exception;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
 use App\Models\DetailPenjualan;
+use Illuminate\Routing\Controller;
 
 class PenjualanController extends Controller
 {
@@ -29,7 +30,7 @@ class PenjualanController extends Controller
         return view('Penjualan.TambahPenjualan');
     }
 
-    public function Sumbit(Request $request)
+    public function submit(Request $request)
 {
     try {
         // Validasi input (tanpa Id_Karyawan dan Id_Produk karena belum tersambung sebagai FK)
@@ -59,7 +60,7 @@ class PenjualanController extends Controller
             ]);
         }
 
-        return redirect()->route('penjualan.TampilPenjualan')->with('success', 'Penjualan berhasil ditambahkan.');
+        return redirect()->route('TampilPenjualan')->with('success', 'Penjualan berhasil ditambahkan.');
     } catch (Exception $e) {
         return back()->with('error', 'Error: ' . $e->getMessage());
     }
@@ -83,14 +84,21 @@ class PenjualanController extends Controller
     public function Update(Request $request, $id)
     {
         $penjualan = Penjualan::findOrFail($id);
-        $penjualan->update($request->all());
-        return redirect()->route('penjualan.TampilPenjualan');
+        if ($penjualan) {
+            $penjualan->update($request->all());
+            return redirect()->route('TampilPenjualan')->with('success', 'Penjualan berhasil diupdate');
+        }
+        return redirect()->route('TampilPenjualan')->with('error', 'Penjualan tidak ditemukan');
     }
 
     public function destroy($id)
     {
         $penjualan = Penjualan::findOrFail($id);
-        $penjualan->delete();
-        return redirect()->route('penjualan.TampilPenjualan');
+        if ($penjualan) {
+            $penjualan->delete(); // Menghapus data akun
+            return redirect()->route('TampilPenjualan')->with('success', 'penjualan berhasil dihapus');
+        }
+        return redirect()->route('TampilPenjualan')->with('error', 'Penjualan tidak ditemukan');
+
     }
 }

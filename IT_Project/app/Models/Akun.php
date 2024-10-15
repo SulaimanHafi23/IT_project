@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Admin;
+use App\Models\Akun;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\Akun as Authenticatable;
 
 class Akun extends Model
 {
@@ -22,21 +24,10 @@ class Akun extends Model
         'Password',
         'level'
     ];
-    protected $hidden = [
-        'password',
-    ];
 
     /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'password' => 'hashed',
-        ];
-
-        
-    }
 }

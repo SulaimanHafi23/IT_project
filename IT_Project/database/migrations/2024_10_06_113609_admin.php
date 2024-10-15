@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('Alamat');
             $table->string('Nomor_telepon');
             $table->string('Gambar_Admin')->nullable();
-            $table->foreignId('Id_Akun')->constrained('akun', 'Id_Akun')->onDelete('cascade');
+            $table->foreignId('Id_User')->constrained('user', 'Id_User')->onDelete('cascade');
             $table->timestamps();
         });
         
