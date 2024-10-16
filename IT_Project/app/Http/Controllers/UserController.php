@@ -86,22 +86,29 @@ class UserController extends Controller
         }
         return redirect()->route('TampilAkun')->with('error', 'Akun tidak ditemukan');
     }
+
+    // Fungsi untuk login
     public function login(Request $request)
     {
-        // Validasi input
-        $request->validate([
+        // Validasi iput
+        $login = $request->validate([
             'Username' => 'required',
             'Password' => 'required'
         ]);
 
         // Mencoba autentikasi dengan credentials yang benar
-
-        if (Auth::attempt($credentials)) {
-            // Jika sukses, redirect ke halaman dashboard
+        if (Auth::attempt(['Username' => $login['Username'], 'Password' => $login['Password']])) {
+            $request->session()->regenerate();
             return redirect()->route('Beranda')->with('success', 'Login berhasil!');
         }
 
         // Jika gagal, kembali ke halaman login dengan pesan error
         return redirect()->back()->withErrors(['error' => 'Username atau password salah.']);
+    }
+    // Proses logout
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login')->with('success', 'Logout berhasil!');
     }
 }

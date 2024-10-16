@@ -1,7 +1,7 @@
 @extends('layouts.SideBar')
 @section('SideBar')
-<li>
-  <a href="{{ route('Beranda') }}" class="nav-link active">
+<li class="nav-item">
+  <a href="{{ route('Beranda') }}" class="nav-link">
       <i class="bi bi-speedometer2"></i>
       Beranda
   </a>
@@ -31,7 +31,7 @@
   </a>
 </li>
 <li>
-  <a href="{{ route('Laporan') }}" class="nav-link">
+  <a href="{{ route('TampilLaporan') }}" class="nav-link">
       <i class="bi bi-journal"></i>
       Laporan
   </a>

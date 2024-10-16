@@ -31,7 +31,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('Laporan') }}" class="nav-link">
+        <a href="{{ route('TampilLaporan') }}" class="nav-link">
             <i class="bi bi-journal"></i>
             Laporan
         </a>

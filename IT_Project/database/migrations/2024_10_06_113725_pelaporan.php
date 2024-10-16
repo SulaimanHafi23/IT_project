@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pelaporan', function (Blueprint $table) {
-            $table->id('Id_Pelaporan');
-            $table->date('Tanggal_Pelaporan');
+        Schema::create('laporan', function (Blueprint $table) {
+            $table->id('Id_Laporan');
+            $table->date('tanggal_laporan');
             $table->date('tanggal_mulai');
             $table->date('tanggal_akhir');
-            $table->foreignId('Id_Admin')->constrained('admin', 'Id_Admin')->onDelete('cascade'); // Foreign key
-            $table->foreignId('Id_Penjualan')->constrained('penjualan', 'Id_Penjualan')->onDelete('cascade'); // Foreign key
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pelaporan');
+        Schema::dropIfExists('laporan');
     }
 };

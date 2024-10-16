@@ -25,4 +25,6 @@ class Penjualan extends Model
     {
         return $this->hasMany(DetailPenjualan::class, 'Id_Penjualan', 'Id_Penjualan');
     }
+
+    
 }
