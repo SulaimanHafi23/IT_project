@@ -22,20 +22,20 @@ class ProductController extends Controller
 
     // Simpan produk baru ke database (Create)
     public function store(Request $request)
-    {
-        $request->validate([
-            'nama_produk' => 'required',
-            'kategori' => 'required',
-            'tanggal_masuk' => 'required|date',
-            'keterangan' => 'required',
-            'harga_satuan' => 'required|numeric',
-            'id_karyawan' => 'required|exists:karyawans,id',
-        ]);
+{
+    $request->validate([
+        'nama_produk' => 'required',
+        'kategori' => 'required',
+        'harga_satuan' => 'required|numeric',
+        'tanggal_masuk' => 'required|date',
+        'keterangan' => 'required',
+        'id_karyawan' => '',
+    ]);
 
-        Product::create($request->all());
+    Product::create($request->all());
 
-        return redirect()->route('produks.index')->with('success', 'Produk berhasil ditambahkan.'); // Ganti ke 'produks.index'
-    }
+    return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan');
+}
 
     // Tampilkan detail produk (Read)
     public function show(Product $product)
