@@ -1,39 +1,43 @@
 @extends('layout')
 
 @section('konten')
- 
-<div class="d-flex">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
     <h4>Daftar Pencatatan</h4>
-    <div class="ms-auto">
-        <a class="btn btn-primary" href="{{ route('Pencatatan.tambah') }}">Tambah Pencatatan</a>
-    </div>
+    <a class="btn btn-primary" href="{{ route('Pencatatan.tambah') }}">Tambah Pencatatan</a>
 </div>
-       
-<table class="table">
-    <tr>
-        <th>No</th>
-        <th>Tanggal_Pencatatan</th>
-        <th>Tanggal_Mulai</th>
-        <th>Tanggal_Akhir</th>
-        <th>Id_Admin</th>
-    </tr>
-    @foreach($Pencatatan as $no=>$data)
-    <tr>
-        <td>{{ $loop->iteration }}</td>
-        <td>{{ \Carbon\Carbon::parse($data->Tanggal_Pencatatan)->format('d-m-Y') }}</td>
-        <td>{{ $data->Tanggal_Mulai }}</td>
-        <td>{{ $data->Tanggal_Akhir }}</td>
-        <td>{{ $data->Id_Admin }}</td>
-        <td>
-            <a href="{{ route('Pencatatan.edit', $data->id) }}" class="btn btn-sm btn-warning">Edit</a>
-            <form action="{{ route('Pencatatan.delete', $data->id )}}" method="post">
-                @csrf
-                <button class="btn btn-sm btn-danger">Hapus</button>
-            </form>
-        </td>
-    </tr>
-        
-    @endforeach
+
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>No</th>
+            <th>Tanggal Pencatatan</th>
+            <th>Tanggal Mulai</th>
+            <th>Tanggal Akhir</th>
+            <th>ID Admin</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($Pencatatan as $data)
+        <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ \Carbon\Carbon::parse($data->Tanggal_Pencatatan)->format('d-m-Y') }}</td>
+            <td>{{ $data->Tanggal_Mulai }}</td>
+            <td>{{ $data->Tanggal_Akhir }}</td>
+            <td>{{ $data->Id_Admin }}</td>
+            <td>
+                <div class="d-flex">
+                    <a href="{{ route('Pencatatan.edit', $data->id) }}" class="btn btn-sm btn-warning me-2">Edit</a>
+                    <form action="{{ route('Pencatatan.delete', $data->id )}}" method="post" class="mb-0">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
 </table>
 
 @endsection
