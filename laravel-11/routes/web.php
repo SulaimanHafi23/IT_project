@@ -2,22 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KaryawanController;
-use App\Http\Controllers\ProductController;
 
-Route::get('/products', [ProductController::class, 'index']);
-Route::get('/products/create', [ProductController::class, 'create']);
-Route::post('/products', [ProductController::class, 'store']);
-Route::get('/products/edit/{id}', [ProductController::class, 'edit']);
-Route::post('/products/update/{id}', [ProductController::class, 'update']);
-Route::post('/products/delete/{id}', [ProductController::class, 'destroy']);
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index'); // Menampilkan list karyawan
+Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create'); // Form tambah karyawan
+Route::post('/karyawan', [KaryawanController::class, 'store'])->name('karyawan.store'); // Simpan data karyawan
 
-//untuk produk
-Route::resource('products', ProductController::class);
+Route::get('/karyawan/{karyawan}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');
+// Route::put('/karyawan/{karyawan}', [KaryawanController::class, 'update'])->name('karyawan.update'); // Update data karyawan
+Route::put('/karyawan/{karyawan}', [KaryawanController::class, 'update'])->name('karyawan.update');
 
 
-
-// untuk karyawan
-Route::resource('/karyawan', KaryawanController::class);
+Route::delete('/karyawan/{karyawan}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy'); // Hapus data karyawan
