@@ -10,20 +10,20 @@
 <body>
     <div class="container mt-5">
         <h2 class="mb-4">Form Ubah Data Akun</h2>
-        <form action="{{route('UpdateAkun', $akun->Id_Akun)}}" method="post">
+        <form action="{{route('UpdateAkun', $user->Id_User)}}" method="post">
             @csrf
             <tr>
                 <td>
                     <div class="mb-3">
                       <label for="username" class="form-label">Username</label>
-                      <input type="text" class="form-control" value="{{$akun->Username}}" id="username" name="username" required>
+                      <input type="text" class="form-control" value="{{$user->Username}}" id="username" name="username" required>
                     </div>
                 </td>
                 <td>
                     <!-- Password -->
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" value="{{$akun->Password}}" id="password" name="password" required>
+                        <input type="password" class="form-control" value="{{$user->Password}}" id="password" name="password" required>
                       </div>
                 </td>
             </tr>

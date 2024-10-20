@@ -25,7 +25,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('Produk') }}" class="nav-link">
+        <a href="{{ route('produks.index') }}" class="nav-link">
             <i class="bi bi-grid"></i>
             Produk
         </a>
@@ -43,6 +43,22 @@
     <div class="container mt-5">
         <h1 style="text-align: center">Halaman Akun</h1>
         <hr>
+        @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-square-fill"></i>
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
         <div style="align-content: center">
             <a href="{{ route('TambahAkun') }}">
                 <button class="btn btn-primary" type="button">Tambah Data</button>

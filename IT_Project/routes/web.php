@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PenjualanController;
 
@@ -44,3 +45,10 @@ Route::get('/Detail-laporan/{id}', [LaporanController::class, 'Detail'])->name('
 Route::post('/update-laporan/{id}', [LaporanController::class, 'update'])->name('UpdateLaporan');
 Route::put('/update-laporan/{id}', [LaporanController::class, 'update'])->name('UpdateLaporan');
 Route::delete('/delete-laporan/{id}', [LaporanController::class, 'delete'])->name('DeleteLaporan');
+
+Route::get('/products', [ProdukController::class, 'index'])->name('produks.index');
+Route::get('/products/create', [ProdukController::class, 'create'])->name('produks.create');
+Route::post('/products', [ProdukController::class, 'store'])->name('produks.store');
+Route::get('/products/edit/{id}', [ProdukController::class, 'edit'])->name('produks.edit');
+Route::post('/products/update/{id}', [ProdukController::class, 'update'])->name('produks.update');
+Route::post('/products/delete/{id}', [ProdukController::class, 'destroy'])->name('produks.destroy');

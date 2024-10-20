@@ -9,23 +9,28 @@ class Produk extends Model
 {
     use HasFactory;
 
-    // Nama tabel yang terkait dengan model ini
     protected $table = 'produk';
 
-    // Primary key
     protected $primaryKey = 'Id_Produk';
 
-    // Kolom-kolom yang dapat diisi secara massal
     protected $fillable = [
         'Nama_Produk',
-        'Harga_Satuan',
+        'Kategori',
+        'Tanggal_Masuk',
+        'Ketarangan',
         'Stok',
-        'Keterangan',
+        'Harga_Satuan',
+        'Id_Karyawan',
     ];
 
+    public function karyawan()
+    {
+        return $this->hashOne(Karyawan::class, 'id_karyawan');
+    }
+    
     // Relasi dengan Detail Penjualan
     public function detailPenjualan()
     {
-        return $this->hasMany(DetailPenjualan::class, 'Id_Produk', 'Id_Produk');
+        return $this->belongsTo(DetailPenjualan::class, 'Id_Produk', 'Id_Produk');
     }
 }

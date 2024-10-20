@@ -25,7 +25,7 @@
   </a>
 </li>
 <li>
-  <a href="{{ route('Produk') }}" class="nav-link active">
+  <a href="{{ route('produks.index') }}" class="nav-link active">
       <i class="bi bi-grid"></i>
       Produk
   </a>
