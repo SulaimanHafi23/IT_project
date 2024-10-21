@@ -43,8 +43,13 @@
             <textarea name="Keterangan" class="form-control" id="keterangan" required></textarea>
         </div>
         <div class="mb-3">
-            <label for="Id_Karyawan" class="form-label">ID Karyawan</label>
-            <input type="number" name="Id_Karyawan" class="form-control" id="id_karyawan">
+            <label for="Id_Karyawan" class="form-label">Karyawan</label>
+            <select class="form-select" id="produk" name="produk_id" required>
+                <option value="" disabled selected>Pilih Karyawan</option>
+                @foreach ($karyawan as $pegawai)
+                    <option value="{{ $pegawai->Id_Karyawan }}">{{ $pegawai->Nama_Karyawan}}</option>
+                @endforeach
+            </select>
         </div>
         <!-- Field tambahan selesai -->
 

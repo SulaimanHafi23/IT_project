@@ -11,7 +11,10 @@
                 <strong>ID Penjualan:</strong> {{ $penjualan->Id_Penjualan }}
             </div>
             <div class="mb-3">
-                <strong>Total Harga:</strong> {{ number_format($penjualan->Total_Harga, 0, ',', '.') }}
+                <strong>Kasir:</strong> {{ $penjualan->Id_Karyawan}}
+            </div>
+            <div class="mb-3">
+                <strong>Total Harga:</strong> Rp{{ number_format($penjualan->Total_Harga, 0, ',', '.') }}
             </div>
             <div class="mb-3">
                 <strong>Tanggal Penjualan:</strong> {{ $penjualan->Tanggal_Penjualan }}
@@ -31,12 +34,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($details as $detail)
-                        <tr>
-                            <td>{{ $detail->Id_Produk }}</td>
-                            <td>{{ number_format($detail->Harga_Satuan, 0, ',', '.') }}</td>
-                            <td>{{ $detail->Jumlah }}</td>
-                        </tr>
+                    @foreach ($detail_penjualan as $index => $detail)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $detail->Nama_Produk }}</td>
+                        <td>{{ $detail->Jumlah }}</td>
+                        <td>{{ number_format($detail->Harga_Satuan, 2, ',', '.') }}</td>
+                        <td>{{ number_format($detail->Jumlah * $detail->Harga_Satuan, 2, ',', '.') }}</td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>

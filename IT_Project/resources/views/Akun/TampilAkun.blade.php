@@ -1,63 +1,24 @@
 @extends('layouts.SideBar')
-@section('SideBar')
-    <li>
-        <a href="{{ route('Beranda') }}" class="nav-link">
-            <i class="bi bi-speedometer2"></i>
-            Beranda
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('TampilAkun') }}" class="nav-link active">
-            <i class="bi bi-bi bi-person-circle"></i>
-            Akun
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('Karyawan') }}" class="nav-link">
-            <i class="bi bi-people"></i>
-            Karyawan
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('TampilPenjualan') }}" class="nav-link">
-            <i class="bi bi-table"></i>
-            Penjualan
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('produks.index') }}" class="nav-link">
-            <i class="bi bi-grid"></i>
-            Produk
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('TampilLaporan') }}" class="nav-link">
-            <i class="bi bi-journal"></i>
-            Laporan
-        </a>
-    </li>
-    </ul>
-@endsection
 
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-5">    
         <h1 style="text-align: center">Halaman Akun</h1>
         <hr>
-        @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="bi bi-check-square-fill"></i>
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-square-fill"></i>
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
 
-@if(session('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <i class="bi bi-exclamation-triangle-fill"></i>
-        {{ session('error') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
 
         <div style="align-content: center">
             <a href="{{ route('TambahAkun') }}">
@@ -68,6 +29,7 @@
             <thead>
                 <tr>
                     <th scope="col">No</th>
+                    <th scope="col">Id Akun</th>
                     <th scope="col">username</th>
                     <th scope="col">Level</th>
                     <th scope="col">Aksi</th>
@@ -77,6 +39,7 @@
                 @foreach ($user as $no => $dataakun)
                     <tr>
                         <td>{{ $no + 1 }}</td>
+                        <td>{{ $dataakun->Id_User }}</td>
                         <td>{{ $dataakun->Username }}</td>
                         <td>{{ $dataakun->Level }}</td>
                         <td>
@@ -99,7 +62,7 @@
                 @endforeach
             </tbody>
         </table>
-        </div>
-      </div>
+    </div>
+    </div>
     </div>
 @endsection

@@ -2,19 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\Penjualan;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Karyawan extends Model
 {
-    use HasFactory;
+  use HasFactory;
+    // Uncomment this line if you're using SoftDeletes
+    // use SoftDeletes;
 
-    // Nama tabel yang terkait dengan model ini
     protected $table = 'karyawan';
-
-    // Primary key
-    protected $primaryKey = 'Id_Karyawan';
-
+    protected $primaryKey = 'Id_karyawan';
     // Kolom-kolom yang dapat diisi secara massal
     protected $fillable = [
         'Nama_Karyawan',
@@ -22,16 +22,20 @@ class Karyawan extends Model
         'Nomor_Telepon',
         'Jabatan',
         'Gaji',
-        'tanggal_Masuk',
+        'Tanggal_Masuk',
         'Shift_Kerja',
         'Posisi_Jabatan',
         'Gambar_Karyawan',
         'Tanggal_Lahir',
+        'Id_User',
     ];
 
     // Relasi dengan Penjualan (karyawan melakukan penjualan)
     public function penjualan()
     {
         return $this->hasMany(Penjualan::class, 'Id_Karyawan', 'Id_Karyawan');
+    }
+    public function user() {
+        return $this->belongsTo(User::class, 'Id_User');
     }
 }

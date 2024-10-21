@@ -16,7 +16,8 @@ return new class extends Migration
             $table->integer('Referensi_Pembayaran');
             $table->date('Tanggal_Pembayaran');
             $table->enum('Status_Pembayaran', ['berhasil', 'gagal'])->default('berhasil');
-            $table->foreignId('Id_Penjualan')->constrained('penjualan', 'Id_Penjualan')->onDelete('cascade'); // Foreign key
+            $table->string('Id_Penjualan');
+            $table->foreign('Id_Penjualan')->references('Id_Penjualan')->on('penjualan')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
-use Illuminate\Routing\Controller;
+use App\Models\Karyawan;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class ProdukController extends Controller
 {
@@ -18,7 +19,8 @@ class ProdukController extends Controller
     // Tampilkan form untuk membuat produk baru (Create)
     public function create()
     {
-        return view('produks.create');
+        $karyawan = Karyawan::all();
+        return view('produks.create', compact('karyawan'));
     }
 
     // Simpan produk baru ke database (Create)
@@ -31,7 +33,7 @@ class ProdukController extends Controller
             'Tanggal_Masuk' => 'required|date',
             'Stok' => 'required',
             'Keterangan' => 'nullable|string',
-            'Id_Karyawan' => 'nullable|exists:karyawan,id',
+            'Id_Karyawan' => 'nullable|exists:karyawan,Id_karyawan',
         ]);
 
         Produk::create($request->all());
@@ -63,7 +65,7 @@ class ProdukController extends Controller
         // 'Tanggal_Masuk' => 'required|date',
         'Stok' => 'required|integer', // Pastikan stok adalah integer
         'Keterangan' => 'nullable|numeric', // Validasi harga_satuan seharusnya ada dan angka
-        // 'Id_Karyawan' => 'nullable|exists:karyawans,id', // Jika tidak wajib, gunakan nullable
+        'Id_Karyawan' => 'nullable|exists:karyawan,Id_karyawan', // Jika tidak wajib, gunakan nullable
     ]);
 
     // Cari produk berdasarkan ID
@@ -76,7 +78,7 @@ class ProdukController extends Controller
         // 'Tanggal_Masuk',
         'Stok',
         'Keterangan',
-        // 'Id_Karyawan'
+        'Id_Karyawan'
     ]));
 
     // Redirect dengan pesan sukses

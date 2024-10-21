@@ -1,45 +1,4 @@
 @extends('layouts.Sidebar')
-
-@section('SideBar')
-    <li>
-        <a href="{{ route('Beranda') }}" class="nav-link">
-            <i class="bi bi-speedometer2"></i>
-            Beranda
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('TampilAkun') }}" class="nav-link">
-            <i class="bi bi-bi bi-person-circle"></i>
-            Akun
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('Karyawan') }}" class="nav-link">
-            <i class="bi bi-people"></i>
-            Karyawan
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('TampilPenjualan') }}" class="nav-link active">
-            <i class="bi bi-table"></i>
-            Penjualan
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('produks.index') }}" class="nav-link">
-            <i class="bi bi-grid"></i>
-            Produk
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('TampilLaporan') }}" class="nav-link">
-            <i class="bi bi-journal"></i>
-            Laporan
-        </a>
-    </li>
-    </ul>
-@endsection
-
 @section('content')
     <div class="container mt-5">
         <h1 style="text-align: center">Halaman Penjualan</h1>
@@ -53,6 +12,7 @@
                         <th>ID</th>
                         <th>Total Harga</th>
                         <th>Tanggal Penjualan</th>
+                        <th>Metode Pembayaran</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -64,6 +24,7 @@
                         @else
                             @foreach ($penjualan as $pjln)
                                 <tr>
+                                    <td>{{ $pjln->Id_Penjualan }}</td>
                                     <td>{{ $pjln->Tanggal_Penjualan }}</td>
                                     <td>{{ $pjln->Total_Harga }}</td>
                                     <td>{{ $pjln->Metode_Pembayaran }}</td>

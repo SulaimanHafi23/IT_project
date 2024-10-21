@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Karyawan;
+use App\Models\DetailPenjualan;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Produk extends Model
 {
@@ -25,7 +27,7 @@ class Produk extends Model
 
     public function karyawan()
     {
-        return $this->hashOne(Karyawan::class, 'id_karyawan');
+        return $this->hashOne(Karyawan::class, 'Id_Karyawan');
     }
     
     // Relasi dengan Detail Penjualan

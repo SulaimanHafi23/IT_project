@@ -5,13 +5,14 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PenjualanController;
 
 Route::view('/', 'Beranda')->name('Beranda'); 
 Route::view('Akun.TampilAkun', 'Akun.TampilAkun')->name('TampilAkun');
 Route::view('Penjualan.TampilPenjualan', 'Penjualan.TampilPenjualan')->name('TampilPenjualan');
 Route::view('Produk', 'Produk')->name('Produk');
-Route::view('Karyawan', 'Karyawan')->name('Karyawan');
+Route::view('Karyawan.TampilKaryawan', 'Karyawan.TampilKaryawan')->name('TampilKaryawan');
 Route::view('Laporan.TampilLaporan', 'Laporan.TampilLaporan ')->name('TampilLaporan');
 Route::view('Login', 'Login ')->name('login');
 
@@ -34,7 +35,9 @@ Route::post('/buat/penjualan', [PenjualanController::class, 'submit'])->name('Bu
 Route::get('/edit-penjualan/{id}', [PenjualanController::class, 'Edit'])->name('EditPenjualan');
 Route::get('/Detail-penjualan/{id}', [PenjualanController::class, 'Detail'])->name('DetailPenjualan');
 Route::post('/update-penjualan/{id}', [PenjualanController::class, 'update'])->name('UpdatePenjualan');
+Route::put('update-penjualan/{id}', [PenjualanController::class, 'update'])->name('Penjualan.Update');
 Route::delete('/delete-penjualan/{id}', [PenjualanController::class, 'destroy'])->name('DeletePenjualan');
+Route::get('/generate-id-penjualan', [PenjualanController::class, 'generateIdPenjualan']);
 
 // Route untuk Laporan
 Route::get('/laporan', [LaporanController::class, 'Tampil'])->name('TampilLaporan');
@@ -52,3 +55,13 @@ Route::post('/products', [ProdukController::class, 'store'])->name('produks.stor
 Route::get('/products/edit/{id}', [ProdukController::class, 'edit'])->name('produks.edit');
 Route::post('/products/update/{id}', [ProdukController::class, 'update'])->name('produks.update');
 Route::post('/products/delete/{id}', [ProdukController::class, 'destroy'])->name('produks.destroy');
+
+// Route untuk Laporan
+Route::get('/Karyawan', [KaryawanController::class, 'Tampil'])->name('TampilKaryawan');
+Route::get('/buat/Karyawan', [KaryawanController::class, 'Tambah'])->name('TambahKaryawan');
+Route::post('/buat/Karyawan', [KaryawanController::class, 'submit'])->name('BuatKaryawan');
+Route::get('/edit-Karyawan/{id}', [KaryawanController::class, 'Edit'])->name('EditKaryawan');
+Route::get('/Detail-Karyawan/{id}', [KaryawanController::class, 'Detail'])->name('DetailKaryawan');
+Route::post('/update-Karyawan/{id}', [KaryawanController::class, 'update'])->name('UpdateKaryawan');
+Route::put('/update-Karyawan/{id}', [KaryawanController::class, 'update'])->name('UpdateKaryawan');
+Route::delete('/delete-Karyawan/{id}', [KaryawanController::class, 'delete'])->name('DeleteKaryawan');

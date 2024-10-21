@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap 5.3 Sidebar with User Profile</title>
+    <title>IT_Project</title>
     <!-- Bootstrap 5.3 CSS -->
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
     <!-- Bootstrap Icons -->
@@ -77,41 +77,104 @@
             </a>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
-              @yield('SideBar')
-                
-            <hr><br>
-            <hr style="margin-bottom: 0px;">
-            <div class="profile d-flex align-items-center" style="padding-bottom:5px;">
-                <img src="https://via.placeholder.com/40" alt="profile">
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        mdo
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
-                    </ul>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="{{ route('Beranda') }}" class="nav-link {{ Route::is('Beranda') ? 'active' : '' }}">
+                            <i class="bi bi-speedometer2"></i>
+                            Beranda
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('TampilAkun') }}"
+                            class="nav-link {{ Route::is('TampilAkun') ? 'active' : '' }}">
+                            <i class="bi bi-person-circle"></i>
+                            Akun
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('TampilKaryawan') }}"
+                            class="nav-link {{ Route::is('TampilKaryawan') ? 'active' : '' }}">
+                            <i class="bi bi-people"></i>
+                            Karyawan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('TampilPenjualan') }}"
+                            class="nav-link {{ Route::is('TampilPenjualan') ? 'active' : '' }}">
+                            <i class="bi bi-table"></i>
+                            Penjualan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('produks.index') }}"
+                            class="nav-link {{ Route::is('produks.index') ? 'active' : '' }}">
+                            <i class="bi bi-grid"></i>
+                            Produk
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('TampilLaporan') }}"
+                            class="nav-link {{ Route::is('TampilLaporan') ? 'active' : '' }}">
+                            <i class="bi bi-journal"></i>
+                            Laporan
+                        </a>
+                    </li>
+                </ul>
+                <hr><br>
+                <hr style="margin-bottom: 0px;">
+                <div class="profile d-flex align-items-center" style="padding-bottom:5px;">
+                    <img src="https://via.placeholder.com/40" alt="profile">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            mdo
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
         </div>
         {{-- content --}}
         @yield('content')
     </div>
 
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap 5.3 JS Bundle with Popper -->
     <script src="{{ asset('js/scripts.js') }}"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            @if(session('success') || session('error'))
-                var toastLiveExample = document.getElementById('liveToast');
-                var toast = new bootstrap.Toast(toastLiveExample);
-                toast.show();
+            @if (session('success'))
+                Swal.fire({
+                    icon: "success",
+                    title: "BERHASIL",
+                    text: "{{ session('success') }}",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            @elseif (session('error'))
+                Swal.fire({
+                    icon: "error",
+                    title: "GAGAL!",
+                    text: "{{ session('error') }}",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
             @endif
-        });
     </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    document.addEventListener('DOMContentLoaded', function () {
+    @if (session('success') || session('error'))
+        var toastLiveExample = document.getElementById('liveToast');
+        var toast = new bootstrap.Toast(toastLiveExample);
+        toast.show();
+    @endif
+    });
+    </script>
+
+
 
 </html>

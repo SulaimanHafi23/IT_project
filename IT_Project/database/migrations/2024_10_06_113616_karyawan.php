@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('karyawan', function (Blueprint $table) {
-            $table->id('Id_karyawan');
-            $table->string('Nama_karyawan');
+            $table->id('Id_Karyawan');
+            $table->string('Nama_Karyawan');
             $table->text('Alamat');
             $table->string('Nomor_Telepon');
             $table->string('Posisi_Jabatan');
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->decimal('Gaji', 10, 2);
             $table->date('Tanggal_Masuk');
             $table->string('Gambar_Karyawan')->nullable();
-            $table->foreignId('Id_Akun')->constrained('akun', 'Id_Akun')->onDelete('cascade'); // Foreign key
+            $table->foreignId('Id_User')->nullable()->constrained('user', 'Id_User')->onDelete('cascade'); // Foreign key
             $table->timestamps();
         });
     }
