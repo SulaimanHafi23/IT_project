@@ -24,6 +24,6 @@ class Pembayaran extends Model
     // Relasi dengan Penjualan
     public function penjualan()
     {
-        return $this->hasMany(Penjualan::class, 'Id_Pembayaran', 'Id_Pembayaran');
+        return $this->belongsTo(Penjualan::class, 'Id_Penjualan');
     }
 }

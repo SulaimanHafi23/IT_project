@@ -7,8 +7,10 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\PembayaranController;
 
-Route::view('/', 'Beranda')->name('Beranda'); 
+Route::view('/', 'login')->name('login'); 
+Route::view('Beranda', 'Beranda')->name('Beranda'); 
 Route::view('Akun.TampilAkun', 'Akun.TampilAkun')->name('TampilAkun');
 Route::view('Penjualan.TampilPenjualan', 'Penjualan.TampilPenjualan')->name('TampilPenjualan');
 Route::view('Produk', 'Produk')->name('Produk');
@@ -17,7 +19,7 @@ Route::view('Laporan.TampilLaporan', 'Laporan.TampilLaporan ')->name('TampilLapo
 Route::view('Login', 'Login ')->name('login');
 
 // route untuk login 
-Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('/login', [UserController::class, 'login'])->name('login');
 
 // Rute untuk Akun
@@ -26,6 +28,7 @@ Route::get('/buat/akun', [UserController::class, 'Tambah'])->name('TambahAkun');
 Route::post('/buat/akun', [UserController::class, 'submit'])->name('buatAkun');
 Route::get('/edit-akun/{Id}', [UserController::class, 'Edit'])->name('EditAkun');
 Route::post('/update-akun/{Id}', [UserController::class, 'update'])->name('UpdateAkun');
+Route::put('/update-akun/{Id}', [UserController::class, 'update'])->name('UpdateAkun');
 Route::delete('/delete-akun/{id}', [UserController::class, 'destroy'])->name('DeleteAkun');
 
 // Rute resource untuk penjualan
@@ -38,6 +41,13 @@ Route::post('/update-penjualan/{id}', [PenjualanController::class, 'update'])->n
 Route::put('update-penjualan/{id}', [PenjualanController::class, 'update'])->name('Penjualan.Update');
 Route::delete('/delete-penjualan/{id}', [PenjualanController::class, 'destroy'])->name('DeletePenjualan');
 Route::get('/generate-id-penjualan', [PenjualanController::class, 'generateIdPenjualan']);
+
+// route untuk pembayaran
+Route::get('/pembayaran', [PembayaranController::class, 'lihat'])->name('Pembayaran');
+Route::get('/pembayaran/selesai', [PembayaranController::class, 'Tampil'])->name('TampilPenjualan');
+Route::get('/pembayaran/kembali', [PembayaranController::class, 'tambah'])->name('KembaliTambahPenjualan');
+Route::get('/penjualan/{id_penjualan}/pembayaran', [PembayaranController::class, 'Detail'])->name('DetailPembayaran');
+
 
 // Route untuk Laporan
 Route::get('/laporan', [LaporanController::class, 'Tampil'])->name('TampilLaporan');

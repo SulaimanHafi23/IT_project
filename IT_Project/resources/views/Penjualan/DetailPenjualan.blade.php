@@ -29,8 +29,10 @@
                 <thead class="table-light">
                     <tr>
                         <th>ID Produk</th>
-                        <th>Harga Satuan</th>
+                        <th>Nama Produk</th>
                         <th>Jumlah</th>
+                        <th>Harga Satuan</th>
+                        <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>

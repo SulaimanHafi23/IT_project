@@ -14,6 +14,7 @@
         <h2 class="mb-4">Form Ubah Data Akun</h2>
         <form action="{{ route('UpdateAkun', $user->Id_User) }}" method="post">
             @csrf
+            @method('PUT')
             <tr>
                 <td>
                     <div class="mb-3">
@@ -33,18 +34,19 @@
 
             </tr>
             <input type="checkbox" onclick="togglePassword()"> Show Password
+            <br>
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Edit</button>
 
+           
+        </form>
+        <script src="{{ asset('js/scripts.js') }}"></script>
             <script>
                 function togglePassword() {
                     const passwordField = document.getElementById("password");
                     passwordField.type = passwordField.type === "password" ? "text" : "password";
                 }
             </script>
-            <br>
-            <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary">Edit</button>
-        </form>
-        <script src="{{ asset('js/scripts.js') }}"></script>
 </body>
 
 </html>

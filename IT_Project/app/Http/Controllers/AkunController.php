@@ -41,7 +41,11 @@ class AkunController extends Controller
         $akun->save(); // Menyimpan data ke database
 
         // Mengarahkan kembali ke halaman 'TampilAkun' dengan pesan sukses
-        return redirect()->route('TampilAkun')->with('success', 'Akun berhasil ditambahkan');
+        if($akun->save()){
+            return redirect()->route('TampilAkun')->with('success', 'Akun berhasil ditambahkan');
+        } else {
+            return redirect()->back()->with('error', 'Akun tidak bisa disimpan');
+        }
     }
 
     // Fungsi untuk menampilkan form edit akun berdasarkan ID

@@ -14,6 +14,7 @@
                         <th>Tanggal Penjualan</th>
                         <th>Metode Pembayaran</th>
                         <th>Aksi</th>
+                        <th>Lihat Pembayaran</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,6 +41,9 @@
                                             <button type="submit" class="btn btn-danger btn-sm"
                                                 onclick="return confirm('Apakah Anda yakin ingin menghapus penjualan ini?')">Hapus</button>
                                         </form>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('DetailPembayaran', $pjln->Id_Penjualan) }}" class="btn btn-success"><i class="bi bi-info-circle"></i> Lihat Pembayaran</a>
                                     </td>
                                 </tr>
                             @endforeach

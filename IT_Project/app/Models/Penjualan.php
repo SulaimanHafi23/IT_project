@@ -25,7 +25,11 @@ class Penjualan extends Model
 
     // Relasi ke karyawan
     public function karyawan()
-{
+    {
     return $this->belongsTo(Karyawan::class, 'Id_Karyawan', 'Id_Karyawan');
-}
+    }
+    public function pembayaran()
+    {
+        return $this->hasOne(Pembayaran::class, 'Id_Penjualan');
+    }
 }

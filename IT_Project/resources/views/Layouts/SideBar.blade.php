@@ -78,6 +78,7 @@
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <ul class="nav nav-pills flex-column mb-auto">
+                    @yield('sidebar')
                     <li class="nav-item">
                         <a href="{{ route('Beranda') }}" class="nav-link {{ Route::is('Beranda') ? 'active' : '' }}">
                             <i class="bi bi-speedometer2"></i>
@@ -164,15 +165,15 @@
                     timer: 2000
                 });
             @endif
-    </script>
-
-    document.addEventListener('DOMContentLoaded', function () {
-    @if (session('success') || session('error'))
-        var toastLiveExample = document.getElementById('liveToast');
-        var toast = new bootstrap.Toast(toastLiveExample);
-        toast.show();
-    @endif
-    });
+            
+            document.addEventListener('DOMContentLoaded', function () {
+                @if (session('success') || session('error'))
+                var toastLiveExample = document.getElementById('liveToast');
+                var toast = new bootstrap.Toast(toastLiveExample);
+                toast.show();
+                @endif
+            });
+            </script>
     </script>
 
 

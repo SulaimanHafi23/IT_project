@@ -20,14 +20,14 @@
                     <h5 class="card-title">Informasi Karyawan</h5>
                     <ul class="list-group">
                         <li class="list-group-item"><strong>ID Karyawan:</strong> {{ $karyawan->Id_Karyawan }}</li>
-                        <li class="list-group-item"><strong>Nama Karyawan:</strong> {{ $karyawan->Nama_karyawan }}</li>
+                        <li class="list-group-item"><strong>Nama Karyawan:</strong> {{ $karyawan->Nama_Karyawan }}</li>
                         <li class="list-group-item"><strong>Alamat:</strong> {{ $karyawan->Alamat }}</li>
                         <li class="list-group-item"><strong>Nomor Telepon:</strong> {{ $karyawan->Nomor_Telepon }}</li>
                         <li class="list-group-item"><strong>Posisi Jabatan:</strong> {{ $karyawan->Posisi_Jabatan }}</li>
                         <li class="list-group-item"><strong>Tanggal Lahir:</strong> {{ \Carbon\Carbon::parse($karyawan->Tanggal_Lahir)->format('d-m-Y') }}</li>
                         <li class="list-group-item"><strong>Shift Kerja:</strong> {{ $karyawan->Shift_Kerja }}</li>
                         <li class="list-group-item"><strong>Gaji:</strong> Rp {{ number_format($karyawan->Gaji, 2, ',', '.') }}</li>
-                        <li class="list-group-item"><strong>ID Akun:</strong> {{ $karyawan->Id_Akun }}</li>
+                        <li class="list-group-item"><strong>ID Akun:</strong> {{ $karyawan->Id_User }}</li>
                         <li class="list-group-item"><strong>Tanggal Masuk:</strong> {{ \Carbon\Carbon::parse($karyawan->Tanggal_Masuk)->format('d-m-Y') }}</li>
                     </ul>
                 </div>

@@ -76,7 +76,7 @@ class PenjualanController extends Controller
         ]);
     }
 
-    return redirect()->route('TampilPenjualan')->with('success', 'Penjualan berhasil ditambahkan');
+    return redirect()->route('Pembayaran')->with('success', 'Penjualan berhasil ditambahkan');
 }
 
 public function Detail($id)
@@ -161,7 +161,7 @@ public function update(Request $request, $id)
     }
 
     public function generateIdPenjualan()
-{
+    {
     $tanggalSekarang = Carbon::now()->format('dmY'); // Format tanggal seperti '12062024'
     $inisialUsaha = 'AH'; // Prefix usaha
 
