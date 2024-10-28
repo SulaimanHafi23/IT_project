@@ -14,22 +14,22 @@ class Penjualan extends Model
     protected $primaryKey = 'Id_Penjualan'; 
     public $incrementing = false; 
     protected $keyType = 'string'; 
-    protected $fillable = ['Id_Penjualan', 'Total_Harga', 'Id_Karyawan', 'Tanggal_Penjualan', 'Metode_Pembayaran'];
+    protected $fillable = [
+        'Id_Penjualan', 
+        'Total_Harga', 
+        'Id_Karyawan', 
+        'Tanggal_Penjualan', 
+        'Metode_Pembayaran'
+    ];
 
-    // Relasi ke detail penjualan
-    public function detailPenjualan()
-    {
-    return $this->hasMany(DetailPenjualan::class, 'Id_Penjualan', 'Id_Penjualan');
+
+    public function detailPenjualan(){
+        return $this->hasMany(DetailPenjualan::class, 'Id_Penjualan', 'Id_Penjualan');
     }
-
-
-    // Relasi ke karyawan
-    public function karyawan()
-    {
-    return $this->belongsTo(Karyawan::class, 'Id_Karyawan', 'Id_Karyawan');
+    public function karyawan(){
+        return $this->belongsTo(Karyawan::class, 'Id_Karyawan', 'Id_Karyawan');
     }
-    public function pembayaran()
-    {
+    public function pembayaran(){
         return $this->hasOne(Pembayaran::class, 'Id_Penjualan');
     }
 }

@@ -1,14 +1,14 @@
 @extends('layouts.SideBar')
 
 @section('content')
-<div class="container">
+<div class="container mt-2">
     <h1>Edit Laporan</h1>
     <form action="{{ route('UpdateLaporan', $laporan->Id_Laporan) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="form-group">
             <label for="Tanggal_laporan">Tanggal Laporan</label>
-            <input type="date" name="Tanggal_laporan" class="form-control" value="{{ $laporan->Tanggal_laporan }}" disabled>
+            <input type="date" name="Tanggal_laporan" class="form-control" value="{{ $laporan->tanggal_laporan }}" disabled>
         </div>
         <div class="form-group">
             <label for="tanggal_mulai">Tanggal Mulai</label>
@@ -19,6 +19,9 @@
             <input type="date" name="tanggal_akhir" class="form-control" value="{{ $laporan->tanggal_akhir }}" required>
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
+        <a href="{{ route('TampilLaporan') }}" class="btn btn-secondary">Batal</a>
     </form>
+</div>
+</div>
 </div>
 @endsection

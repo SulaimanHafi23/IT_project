@@ -1,7 +1,7 @@
 @extends('layouts.SideBar')
 
 @section('content')
-<div class="container mt-5">
+<div class="container mt-2">
     <h1 class="text-center">Detail Karyawan</h1>
     <hr>
 
@@ -13,6 +13,7 @@
                     @if ($karyawan->Gambar_Karyawan)
                         <img src="{{ asset('storage/' . $karyawan->Gambar_Karyawan) }}" alt="Foto Karyawan" class="img-thumbnail">
                     @else
+
                         <img src="https://via.placeholder.com/150" alt="Foto Karyawan" class="img-thumbnail">
                     @endif
                 </div>

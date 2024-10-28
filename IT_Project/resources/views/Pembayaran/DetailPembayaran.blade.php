@@ -1,6 +1,6 @@
 @extends('layouts.Sidebar')
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-2">
         <h1 class="text-center mb-4">Detail Pembayaran Penjualan #{{ $penjualan->Id_Penjualan }}</h1>
 
         <!-- Menampilkan data penjualan -->
@@ -15,7 +15,6 @@
             </div>
         </div>
 
-        <!-- Menampilkan data pembayaran terkait jika ada -->
         <div class="card shadow-sm">
             <div class="card-header">
                 <h4>Detail Pembayaran</h4>

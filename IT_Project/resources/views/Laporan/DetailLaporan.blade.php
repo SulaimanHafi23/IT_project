@@ -1,7 +1,7 @@
 @extends('layouts.SideBar')
 
 @section('content')
-<div class="container">
+<div class="container mt-2">
     <h1>Detail Laporan</h1>
     <div class="card">
         <div class="card-header">
@@ -33,7 +33,6 @@
                     @endforeach
                 </tbody>
             </table>
-            
             <a href="{{ route('TampilLaporan') }}" class="btn btn-primary">Kembali</a>
         </div>
     </div>

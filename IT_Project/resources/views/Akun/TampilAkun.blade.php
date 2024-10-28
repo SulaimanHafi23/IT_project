@@ -1,7 +1,7 @@
 @extends('layouts.SideBar')
 
 @section('content')
-    <div class="container mt-5">    
+    <div class="container mt-2">
         <h1 style="text-align: center">Halaman Akun</h1>
         <hr>
         @if (session('success'))
@@ -62,7 +62,5 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
-    </div>
     </div>
 @endsection

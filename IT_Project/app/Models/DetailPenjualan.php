@@ -9,9 +9,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class DetailPenjualan extends Model
 {
+    use HasFactory;
+
     protected $table = 'detail_penjualan';
+    protected $primaryKey = 'Id_Detail_Penjualan'; // Ganti dengan nama kolom primary key Anda
+
     protected $fillable = [
-        'Id_Detail_Penjualan',
         'Id_Penjualan',
         'Id_Produk',
         'Harga_Satuan',

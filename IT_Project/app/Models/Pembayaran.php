@@ -9,21 +9,17 @@ class Pembayaran extends Model
 {
     use HasFactory;
 
-    // Nama tabel yang terkait dengan model ini
     protected $table = 'pembayaran';
-
-    // Primary key
     protected $primaryKey = 'Id_Pembayaran';
-
-    // Kolom-kolom yang dapat diisi secara massal
     protected $fillable = [
+        'Referensi_Pembayaran',
         'Jenis_Pembayaran',
+        'Tanggal_Pembayaran',
         'Status_Pembayaran',
+        'Id_Penjualan',
     ];
 
-    // Relasi dengan Penjualan
-    public function penjualan()
-    {
+    public function penjualan(){
         return $this->belongsTo(Penjualan::class, 'Id_Penjualan');
     }
 }

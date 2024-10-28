@@ -1,8 +1,22 @@
 @extends('layouts.SideBar')
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-2">
         <h1 style="text-align: center">Halaman Laporan</h1>
         <hr>
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-square-fill"></i>
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="container">
             <h1>Daftar Laporan</h1>
             <a href="{{ route('TambahLaporan') }}" class="btn btn-primary mb-3">Tambah Laporan</a>
@@ -19,15 +33,14 @@
                 <tbody>
                     @foreach ($laporan as $item)
                         <tr>
-                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->Id_Laporan }}</td>
                             <td>{{ $item->tanggal_laporan }}</td>
                             <td>{{ $item->tanggal_mulai }}</td>
                             <td>{{ $item->tanggal_akhir }}</td>
                             <td>
                                 <a href="{{ route('EditLaporan', $item->Id_Laporan) }}" class="btn btn-warning">Edit</a>
                                 <a href="{{ route('DetailLaporan', $item->Id_Laporan) }}" class="btn btn-info">Detail</a>
-                                <form action="{{ route('DeleteLaporan', $item->Id_Laporan) }}" method="POST"
-                                    style="display:inline;">
+                                <form action="{{ route('DeleteLaporan', $item->Id_Laporan) }}" method="POST" style="display:inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus laporan ini?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Delete</button>

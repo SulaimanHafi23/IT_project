@@ -1,6 +1,6 @@
 @extends('layouts.SideBar')
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-2">
         <h1 style="text-align: center">Halaman Karyawan</h1>
         <hr>
 

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,7 +12,7 @@ class KaryawanController extends Controller
 {
     public function tampil()
     {
-        $karyawan = Karyawan::all(); // Ambil semua data karyawan
+        $karyawan = Karyawan::all();
         return view('Karyawan.TampilKaryawan', compact('karyawan'));
     }
 
@@ -34,10 +33,9 @@ class KaryawanController extends Controller
             'Shift_Kerja' => 'required|string|max:255',
             'Gaji' => 'required|numeric|min:0',
             'Tanggal_Masuk' => 'required|date',
-            'Gambar_Karyawan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi gambar
+            'Gambar_Karyawan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'Id_User' => 'required|exists:user,Id_User',
         ]);
-
 
         $gambarPath = null;
         if ($request->hasFile('Gambar_Karyawan')) {
@@ -62,13 +60,12 @@ class KaryawanController extends Controller
 
     public function Edit($id)
     {
-        $karyawan = Karyawan::findOrFail($id); // Menemukan karyawan berdasarkan ID
-        return view('Karyawan.EditKaryawan', compact('karyawan')); // Mengirim data karyawan ke view
+        $karyawan = Karyawan::findOrFail($id);
+        return view('Karyawan.EditKaryawan', compact('karyawan'));
     }
 
     public function update(Request $request, $id)
     {
-        // Validasi input
         $request->validate([
             'Nama_Karyawan' => 'required|string|max:255',
             'Alamat' => 'required|string',
@@ -83,70 +80,47 @@ class KaryawanController extends Controller
 
         $karyawan = Karyawan::findOrFail($id);
 
-
-        // Mengupload gambar baru jika ada
         if ($request->hasFile('Gambar_Karyawan')) {
-            // Hapus gambar lama jika ada
-            $Gambar_Karyawan = $request->file('Gambar_Karyawan');
-            $Gambar_Karyawan->storeAs('storapublic/karyawan', $Gambar_Karyawan->hashName());
-            Storage::delete('public/karyawan', $karyawan->Gambar_Karyawan);
-
-            $karyawan->update([
-                'Nama_Karyawan' => $request->Nama_Karyawan,
-                'Alamat' => $request->Alamat,
-                'Nomor_Telepon' => $request->Nomor_Telepon,
-                'Posisi_Jabatan' => $request->Posisi_Jabatan,
-                'Tanggal_Lahir' => $request->Tanggal_Lahir,
-                'Shift_Kerja' => $request->Shift_Kerja,
-                'Gaji' => $request->Gaji,
-                'Id_User' => $request->Id_User,
-                'Gambar_Karyawan' => $Gambar_Karyawan->hashName(),
-            ]);
-        } else {
-            $karyawan->update([
-                'Nama_Karyawan' => $request->Nama_Karyawan,
-                'Alamat' => $request->Alamat,
-                'Nomor_Telepon' => $request->Nomor_Telepon,
-                'Posisi_Jabatan' => $request->Posisi_Jabatan,
-                'Tanggal_Lahir' => $request->Tanggal_Lahir,
-                'Shift_Kerja' => $request->Shift_Kerja,
-                'Gaji' => $request->Gaji,
-                'Id_User' => $request->Id_User,
-            ]);
+            if ($karyawan->Gambar_Karyawan && Storage::exists('public/' . $karyawan->Gambar_Karyawan)) {
+                Storage::delete('public/' . $karyawan->Gambar_Karyawan);
+            }
+        
+            $gambarPath = $request->file('Gambar_Karyawan')->store('karyawan', 'public');
+            $karyawan->Gambar_Karyawan = $gambarPath;
         }
-
+           
+        $karyawan->Nama_Karyawan = $request->Nama_Karyawan;
+        $karyawan->Alamat = $request->Alamat;
+        $karyawan->Nomor_Telepon = $request->Nomor_Telepon;
+        $karyawan->Posisi_Jabatan = $request->Posisi_Jabatan;
+        $karyawan->Tanggal_Lahir = $request->Tanggal_Lahir;
+        $karyawan->Shift_Kerja = $request->Shift_Kerja;
+        $karyawan->Gaji = $request->Gaji;
+        $karyawan->Id_User = $request->Id_User;
         $karyawan->update();
         return redirect()->route('TampilKaryawan')->with('success', 'Data karyawan berhasil diperbarui.');
     }
 
-    public function Detail(string $id)
+
+    public function Detail($id)
     {
-        $karyawan = Karyawan::findOrFail($id); // Menemukan karyawan berdasarkan ID
-        return view('Karyawan.DetailKaryawan', compact('karyawan')); // Mengirim data karyawan ke view
+        $karyawan = Karyawan::findOrFail($id);
+        return view('Karyawan.DetailKaryawan', compact('karyawan'));
     }
 
-
+    
     public function delete($id)
     {
-        // Mencari karyawan berdasarkan ID
         $karyawan = Karyawan::find($id);
 
-        // Memeriksa apakah karyawan ditemukan
         if ($karyawan) {
-            // Menghapus file gambar jika ada
-
-            if ($karyawan->Gambar_Karyawan) {
-                Storage::delete('public/karyawan/' . $karyawan->Gambar_Karyawan);
+            if ($karyawan->Gambar_Karyawan && Storage::exists('public/' . $karyawan->Gambar_Karyawan)) {
+                Storage::delete('public/' . $karyawan->Gambar_Karyawan);
             }
-            // Menghapus karyawan
             $karyawan->delete();
-
-            // Mengarahkan kembali dengan pesan sukses
             return redirect()->route('TampilKaryawan')->with('success', 'Karyawan berhasil dihapus.');
-        } else {
-            // Jika tidak ditemukan, mengarahkan dengan pesan error
-            return redirect()->route('TampilKaryawan')->with('error', 'Karyawan tidak ditemukan.');
         }
-    }
 
+        return redirect()->route('TampilKaryawan')->with('error', 'Karyawan tidak ditemukan.');
+    }
 }

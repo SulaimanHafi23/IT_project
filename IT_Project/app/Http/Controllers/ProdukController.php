@@ -9,21 +9,20 @@ use Illuminate\Routing\Controller;
 
 class ProdukController extends Controller
 {
-    // Tampilkan semua produk (Read)
+
     public function index()
     {
         $produk = Produk::all();
         return view('produks.index', compact('produk'));
     }
 
-    // Tampilkan form untuk membuat produk baru (Create)
+
     public function create()
     {
         $karyawan = Karyawan::all();
         return view('produks.create', compact('karyawan'));
     }
 
-    // Simpan produk baru ke database (Create)
     public function store(Request $request)
     {
         $request->validate([
@@ -33,7 +32,7 @@ class ProdukController extends Controller
             'Tanggal_Masuk' => 'required|date',
             'Stok' => 'required',
             'Keterangan' => 'nullable|string',
-            'Id_Karyawan' => 'nullable|exists:karyawan,Id_karyawan',
+            'Id_Karyawan' => 'required|exists:karyawan,Id_Karyawan',
         ]);
 
         Produk::create($request->all());
@@ -41,57 +40,63 @@ class ProdukController extends Controller
         return redirect()->route('produks.index')->with('success', 'Produk berhasil ditambahkan');
     }
 
-    // Tampilkan detail produk (Read)
     public function show($id)
     {
         $produk = Produk::findOrFail($id);
         return view('produks.show', compact('produk'));
     }
 
-    // Tampilkan form untuk edit produk (Update)
     public function edit($id)
     {
+        $karyawan = Karyawan::all();
         $produk = Produk::findOrFail($id);
-        return view('produks.edit', compact('produk'));
+        return view('produks.edit', compact('produk', 'karyawan'));
     }
-
-    // Update produk di database (Update)
     public function update(Request $request, $id)
 {
-    // Validasi request
+
     $request->validate([
         'Nama_Produk' => 'required',
         'Kategori' => 'required',
-        // 'Tanggal_Masuk' => 'required|date',
-        'Stok' => 'required|integer', // Pastikan stok adalah integer
-        'Keterangan' => 'nullable|numeric', // Validasi harga_satuan seharusnya ada dan angka
-        'Id_Karyawan' => 'nullable|exists:karyawan,Id_karyawan', // Jika tidak wajib, gunakan nullable
+        'Harga_Satuan' => 'required|numeric',
+        'Tanggal_Masuk' => 'nullable|date',
+        'Stok' => 'required',
+        'Keterangan' => 'required|string',
     ]);
 
-    // Cari produk berdasarkan ID
     $produk = Produk::findOrFail($id);
 
-    // Update data produk dengan input yang divalidasi
-    $produk->update($request->only([
-        'Nama_Produk',
-        'Kategori',
-        // 'Tanggal_Masuk',
-        'Stok',
-        'Keterangan',
-        'Id_Karyawan'
-    ]));
+    $data = [
+        'Nama_Produk' => $request->Kategori,
+        'Kategori' => $request->Kategori,
+        'Harga_Satuan' => $request->Harga_Satuan,
+        'Stok' => $request->Stok,
+        'Shift_Kerja' => $request->Shift_Kerja,
+        'Keterangan' => $request->Keterangan,
+    ];
 
-    // Redirect dengan pesan sukses
-    return redirect()->route('produks.index')->with('success', 'Produk berhasil diperbarui.');
+    $produk->update($data);
+    return redirect()->route('produks.index')->with('success', 'Data Produk berhasil diperbarui.');
 }
 
-
-    // Hapus produk dari database (Delete)
-    public function destroy($id)
+    public function detail($id)
     {
-        $produk = Produk::findOrFail($id);
-        $produk->delete();
 
-        return redirect()->route('produks.index')->with('success', 'Produk berhasil dihapus.');
+        $produk = Produk::with('karyawan')->findOrFail($id);        
+
+        return view('produks.detail', compact('produk'));
     }
+
+    public function destroy($id)
+{
+
+    $produk = Produk::findOrFail($id);
+
+    if ($produk->delete()) {
+        return redirect()->route('produks.index')->with('success', 'Produk berhasil dihapus.');
+    } else {
+        return redirect()->route('produks.index')->with('error', 'Produk gagal dihapus. Silakan coba lagi.');
+    }
+}
+
 }

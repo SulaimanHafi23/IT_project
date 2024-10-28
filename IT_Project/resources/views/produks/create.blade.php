@@ -45,7 +45,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="Keterangan" class="form-label">Keterangan</label>
-                    <textarea name="Keterangan" class="form-control" id="keterangan" rows="4" required></textarea>
+                    <textarea name="Keterangan" class="form-control" id="Keterangan" rows="4" required></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="Id_Karyawan" class="form-label">Karyawan</label>
@@ -60,8 +60,9 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12 text-center">
+            <div class="col-md-12 text-left">
                 <button type="submit" class="btn btn-primary">Tambah Produk</button>
+                <a href="{{ route('produks.index') }}" class="btn btn-secondary">Batal</a>
             </div>
         </div>
     </form>
