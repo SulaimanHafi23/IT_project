@@ -1,7 +1,8 @@
 @extends('layouts.SideBar')
 @section('content')
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Daftar Produk</h2>
+    <div class="container mt-2">
+        <h1 style="text-align: center">Halaman Produk</h1>
+        <hr>
         <a href="{{ route('produks.create') }}" class="btn btn-primary mb-3">Tambah Produk</a>
 
         @if (session('success'))
@@ -11,15 +12,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-
-        @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <i class="bi bi-exclamation-triangle-fill"></i>
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -40,15 +32,19 @@
                         <td>{{ $produk->Stok }}</td>
                         <td>Rp {{ number_format($produk->Harga_Satuan, 0, ',', '.') }}</td>
                         <td>
-                            <a href="{{ route('produks.detail', $produk->Id_Produk) }}" class="btn btn-info btn-sm">Detail</a>
-                            <a href="{{ route('produks.edit', $produk->Id_Produk) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{{ route('produks.detail', $produk->Id_Produk) }}"
+                                class="btn btn-info btn-sm">Detail</a>
+                            <a href="{{ route('produks.edit', $produk->Id_Produk) }}"
+                                class="btn btn-warning btn-sm">Edit</a>
                             <form action="{{ route('produks.destroy', $produk->Id_Produk) }}" method="POST"
                                 class="d-inline">
-                                <form action="{{ route('produks.destroy', $produk->Id_Produk) }}" method="POST" class="d-inline">
+                                <form action="{{ route('produks.destroy', $produk->Id_Produk) }}" method="POST"
+                                    class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?')">Hapus</button>
-                                </form>                                 
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?')">Hapus</button>
+                                </form>
                             </form>
                         </td>
                     </tr>

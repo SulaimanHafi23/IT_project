@@ -10,13 +10,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <i class="bi bi-exclamation-triangle-fill"></i>
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
         <div class="container">
             <h1>Daftar Laporan</h1>
             <a href="{{ route('TambahLaporan') }}" class="btn btn-primary mb-3">Tambah Laporan</a>

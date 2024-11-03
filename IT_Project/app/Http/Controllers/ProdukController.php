@@ -87,16 +87,14 @@ class ProdukController extends Controller
         return view('produks.detail', compact('produk'));
     }
 
-    public function destroy($id)
-{
+        public function destroy($id)
+    {
+        $produk = Produk::findOrFail($id);
 
-    $produk = Produk::findOrFail($id);
-
-    if ($produk->delete()) {
-        return redirect()->route('produks.index')->with('success', 'Produk berhasil dihapus.');
-    } else {
-        return redirect()->route('produks.index')->with('error', 'Produk gagal dihapus. Silakan coba lagi.');
+        if ($produk->delete()) {
+            return redirect()->route('produks.index')->with('success', 'Produk berhasil dihapus.');
+        } else {
+            return redirect()->route('produks.index')->with('error', 'Produk gagal dihapus. Silakan coba lagi.');
+        }
     }
-}
-
 }

@@ -27,16 +27,12 @@ class LaporanController extends Controller
             'tanggal_akhir' => 'required|date|after_or_equal:tanggal_mulai', 
         ]);
     
-        try {
-            $laporan = new Laporan();
-            $laporan->tanggal_laporan = $request->tanggal_laporan;
-            $laporan->tanggal_mulai = $request->tanggal_mulai;
-            $laporan->tanggal_akhir = $request->tanggal_akhir;
-            $laporan->save();
-            return redirect()->route('TampilLaporan')->with('success', 'Laporan berhasil ditambahkan');
-        } catch (Exception $e) {
-            return redirect()->route('TampilLaporan')->with('error', 'Gagal menambahkan laporan: ' . $e->getMessage());
-        }
+        $laporan = new Laporan();
+        $laporan->tanggal_laporan = $request->tanggal_laporan;
+        $laporan->tanggal_mulai = $request->tanggal_mulai;
+        $laporan->tanggal_akhir = $request->tanggal_akhir;
+        $laporan->save();
+        return redirect()->route('TampilLaporan')->with('success', 'Laporan berhasil ditambahkan');
     }
     
 
@@ -51,19 +47,14 @@ class LaporanController extends Controller
             'tanggal_akhir' => 'required|date|after_or_equal:tanggal_mulai', 
         ]);
     
-        try {
-            $laporan = Laporan::findOrFail($id); 
-            $laporan->tanggal_mulai = $request->tanggal_mulai;
-            $laporan->tanggal_akhir = $request->tanggal_akhir;
-            $laporan->save();
+        $laporan = Laporan::findOrFail($id); 
+        $laporan->tanggal_mulai = $request->tanggal_mulai;
+        $laporan->tanggal_akhir = $request->tanggal_akhir;
+        $laporan->save();
     
-            return redirect()->route('TampilLaporan')->with('success', 'Laporan berhasil diperbarui');
-        } catch (\Exception $e) {
-            return redirect()->route('TampilLaporan')->with('error', 'Gagal memperbarui laporan: ' . $e->getMessage());
-        }
+        return redirect()->route('TampilLaporan')->with('success', 'Laporan berhasil diperbarui');
     }
     
-
     public function detail($id) {
         $laporan = Laporan::find($id);
         $penjualan = Penjualan::whereBetween('Tanggal_Penjualan', [$laporan->tanggal_mulai, $laporan->tanggal_akhir])->get();
@@ -71,17 +62,9 @@ class LaporanController extends Controller
         return view('Laporan.DetailLaporan', compact('laporan', 'penjualan'));
     }    
 
-    function delete($id) {
-        try {
-            $laporan = Laporan::findOrFail($id);
-            $laporan->delete();
-    
-            return redirect()->route('TampilLaporan')->with('success', 'Laporan berhasil dihapus');
-        } catch (ModelNotFoundException $e) {
-            return redirect()->route('TampilLaporan')->with('error', 'Laporan tidak ditemukan');
-        } catch (Exception $e) {
-            return redirect()->route('TampilLaporan')->with('error', 'Gagal menghapus laporan: ' . $e->getMessage());
-        }
+    public function delete($Id) {
+        $laporan = Laporan::find($Id); 
+        $laporan->delete(); 
+        return redirect()->route('TampilLaporan')->with('success', 'data Laporan berhasil dihapus');
     }
-    
 }

@@ -58,11 +58,8 @@ class UserController extends Controller
 
     public function delete($Id) {
         $akun = User::find($Id); 
-        if ($akun) {
-            $akun->delete(); 
-            return redirect()->route('TampilAkun')->with('success', 'Akun berhasil dihapus');
-        }
-        return redirect()->route('TampilAkun')->with('error', 'Akun tidak ditemukan');
+        $akun->delete(); 
+        return redirect()->route('TampilAkun')->with('success', 'Akun berhasil dihapus');
     }
 
 

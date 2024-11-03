@@ -112,15 +112,10 @@ class KaryawanController extends Controller
     public function delete($id)
     {
         $karyawan = Karyawan::find($id);
-
-        if ($karyawan) {
-            if ($karyawan->Gambar_Karyawan && Storage::exists('public/' . $karyawan->Gambar_Karyawan)) {
-                Storage::delete('public/' . $karyawan->Gambar_Karyawan);
-            }
-            $karyawan->delete();
-            return redirect()->route('TampilKaryawan')->with('success', 'Karyawan berhasil dihapus.');
+        if ($karyawan->Gambar_Karyawan && Storage::exists('public/' . $karyawan->Gambar_Karyawan)) {
+            Storage::delete('public/' . $karyawan->Gambar_Karyawan);
         }
-
-        return redirect()->route('TampilKaryawan')->with('error', 'Karyawan tidak ditemukan.');
+        $karyawan->delete();
+        return redirect()->route('TampilKaryawan')->with('success', 'Karyawan berhasil dihapus.');
     }
 }

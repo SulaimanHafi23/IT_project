@@ -10,85 +10,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
         rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        .footer {
-            background-color: #343a40;
-            text-align: center;
-            padding: 10px 0;
-            color: gray;
-            margin-top: auto;
-            color: white;
-        }
-
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            /* Membuat sidebar memenuhi seluruh tinggi halaman */
-            width: 280px;
-            background-color: #343a40;
-            padding: 20px;
-            color: white;
-        }
-
-        .content {
-            margin-left: 280px;
-            /* Jarak konten ke kiri agar tidak tertutup sidebar */
-            /* padding: 20px; */
-            width: calc(100% - 280px);
-            /* Pastikan konten tidak tumpang tindih dengan sidebar */
-        }
-
-        .sidebar .nav-link {
-            color: white;
-            font-size: 1.1rem;
-        }
-
-        .sidebar .nav-link.active {
-            background-color: #0d6efd;
-        }
-
-        .sidebar .nav-link:hover {
-            background-color: #495057;
-        }
-
-        .sidebar .nav-link i {
-            margin-right: 10px;
-        }
-
-        .profile {
-            position: relative;
-            bottom: 20px;
-            color: white;
-            padding-left: 15px;
-        }
-
-        .profile img {
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            object-fit: cover;
-            margin-right: 10px;
-        }
-
-        .profile .dropdown-toggle {
-            color: white;
-            border: none;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-    </style>
 </head>
 
 <body class="d-flex flex-column">
@@ -165,8 +86,6 @@
                 <i class="bi bi-person-circle" style="font-size: 2rem; margin:0px 20px"></i>
             </div>
         </div>
-
-
         @yield('content')
     </div>
     <!-- Footer -->

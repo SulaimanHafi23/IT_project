@@ -2,8 +2,8 @@
 @section('content')
     <div class="container mt-2">
         <h1 class="text-center mb-4">Detail Pembayaran Penjualan #{{ $penjualan->Id_Penjualan }}</h1>
+        <hr>
 
-        <!-- Menampilkan data penjualan -->
         <div class="card mb-4 shadow-sm">
             <div class="card-header">
                 <h4>Detail Penjualan</h4>
@@ -11,7 +11,8 @@
             <div class="card-body">
                 <p><strong>ID Penjualan:</strong> {{ $penjualan->Id_Penjualan }}</p>
                 <p><strong>Tanggal Penjualan:</strong> {{ $penjualan->Tanggal_Penjualan }}</p>
-                <p><strong>Total:</strong> Rp {{ number_format($penjualan->Total_Harga, 0, ',', '.') }}</p>
+                <p><strong>Total:</strong> Rp {{ number_format($penjualan->Total_Harga, 0, ',', '.') }}
+                </p>
             </div>
         </div>
 

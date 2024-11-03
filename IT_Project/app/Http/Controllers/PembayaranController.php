@@ -27,11 +27,6 @@ class PembayaranController extends Controller
     public function detail($id_penjualan)
     {
         $penjualan = Penjualan::with('pembayaran')->where('Id_Penjualan', $id_penjualan)->first();
-
-        if (!$penjualan) {
-            return redirect()->back()->with('error', 'Data penjualan tidak ditemukan.');
-        }
-
         return view('Pembayaran.DetailPembayaran', compact('penjualan'));
     }
 }

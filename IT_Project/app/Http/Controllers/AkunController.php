@@ -73,19 +73,17 @@ class AkunController extends Controller
             $akun->password = bcrypt($request->password); // Enkripsi password
             $akun->update(); // Simpan data yang diupdate
     
-            // Redirect ke halaman tampil akun dengan pesan sukses
             return redirect()->route('TampilAkun')->with('success', 'Akun berhasil diupdate');
         }
     
-        // Jika akun tidak ditemukan, kembalikan pesan error
         return redirect()->route('TampilAkun')->with('error', 'Akun tidak ditemukan');
     }
 
     // Fungsi untuk menghapus akun
     public function destroy($Id) {
-        $akun = Akun::find($Id); // Mencari data akun berdasarkan ID
+        $akun = Akun::find($Id); 
         if ($akun) {
-            $akun->delete(); // Menghapus data akun
+            $akun->delete();
             return redirect()->route('TampilAkun')->with('success', 'Akun berhasil dihapus');
         }
         return redirect()->route('TampilAkun')->with('error', 'Akun tidak ditemukan');

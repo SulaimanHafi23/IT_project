@@ -9,7 +9,7 @@ use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\PembayaranController;
 
-Route::view('/', 'tampil')->name('login'); 
+Route::view('/', 'Beranda')->name('Beranda'); 
 Route::view('Beranda', 'Beranda')->name('Beranda'); 
 Route::view('Akun.TampilAkun', 'Akun.TampilAkun')->name('TampilAkun');
 Route::view('Penjualan.TampilPenjualan', 'Penjualan.TampilPenjualan')->name('TampilPenjualan');
