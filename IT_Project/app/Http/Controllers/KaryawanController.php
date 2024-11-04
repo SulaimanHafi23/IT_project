@@ -10,21 +10,21 @@ use Illuminate\Support\Facades\Storage;
 
 class KaryawanController extends Controller
 {
-    public function tampil()
+    public function tampil()//mengambil semua data karyawan menggunakan Karyawan::all().
     {
         $karyawan = Karyawan::all();
         return view('Karyawan.TampilKaryawan', compact('karyawan'));
     }
 
-    public function Tambah()
+    public function Tambah()//mengambil semua data pengguna (User) untuk ditampilkan pada tampilan Karyawan.TambahKaryawan
     {
         $user = User::all();
         return view('Karyawan.TambahKaryawan', compact('user'));
     }
 
-    public function Submit(Request $request)
+    public function Submit(Request $request)// menerima input dari form
     {
-        $request->validate([
+        $request->validate([// untuk memvalidasi data input sesuai aturan
             'Nama_Karyawan' => 'required|string|max:255',
             'Alamat' => 'required',
             'Nomor_Telepon' => 'required|string|max:15',
@@ -53,18 +53,18 @@ class KaryawanController extends Controller
             'Tanggal_Masuk' => $request->Tanggal_Masuk,
             'Gambar_Karyawan' => $gambarPath,
             'Id_User' => $request->Id_User,
-        ]);
+        ]);//Membuat entitas karyawan baru di database menggunakan data yang diambil dari form input
 
-        return redirect()->route('TampilKaryawan')->with('success', 'Data Karyawan berhasil ditambahkan.');
+        return redirect()->route('TampilKaryawan')->with('success', 'Data Karyawan berhasil ditambahkan.');//Mengarahkan kembali pengguna ke halaman tampil karyawan dengan pesan sukses
     }
 
-    public function Edit($id)
+    public function Edit($id)//mengambil data karyawan berdasarkan ID
     {
         $karyawan = Karyawan::findOrFail($id);
         return view('Karyawan.EditKaryawan', compact('karyawan'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id)//menerima input form untuk memperbarui data karyawan berdasarkan ID
     {
         $request->validate([
             'Nama_Karyawan' => 'required|string|max:255',
@@ -78,7 +78,7 @@ class KaryawanController extends Controller
             'Gambar_Karyawan' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $karyawan = Karyawan::findOrFail($id);
+        $karyawan = Karyawan::findOrFail($id);//Mencari karyawan berdasarkan ID. Jika tidak ditemukan, fungsi ini akan memunculkan error
 
         if ($request->hasFile('Gambar_Karyawan')) {
             if ($karyawan->Gambar_Karyawan && Storage::exists('public/' . $karyawan->Gambar_Karyawan)) {
@@ -102,14 +102,14 @@ class KaryawanController extends Controller
     }
 
 
-    public function Detail($id)
+    public function Detail($id)//menampilkan detail karyawan tertentu berdasarkan ID
     {
         $karyawan = Karyawan::findOrFail($id);
         return view('Karyawan.DetailKaryawan', compact('karyawan'));
     }
 
     
-    public function delete($id)
+    public function delete($id)// menghapus data karyawan berdasarkan ID
     {
         $karyawan = Karyawan::find($id);
         if ($karyawan->Gambar_Karyawan && Storage::exists('public/' . $karyawan->Gambar_Karyawan)) {

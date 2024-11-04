@@ -10,20 +10,20 @@ use Illuminate\Routing\Controller;
 class ProdukController extends Controller
 {
 
-    public function index()
+    public function index()//mengambil semua data produk menggunakan Produk::all()
     {
         $produk = Produk::all();
         return view('produks.index', compact('produk'));
     }
 
 
-    public function create()
+    public function create()//mengambil semua data karyawan menggunakan Karyawan::all(), yang mungkin diperlukan untuk memilih karyawan yang terkait dengan produk
     {
         $karyawan = Karyawan::all();
         return view('produks.create', compact('karyawan'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request)//menerima input dari form dan memvalidasinya
     {
         $request->validate([
             'Nama_Produk' => 'required',
@@ -35,24 +35,24 @@ class ProdukController extends Controller
             'Id_Karyawan' => 'required|exists:karyawan,Id_Karyawan',
         ]);
 
-        Produk::create($request->all());
+        Produk::create($request->all());//Membuat entitas produk baru di database menggunakan data yang diterima dari input form
 
-        return redirect()->route('produks.index')->with('success', 'Produk berhasil ditambahkan');
+        return redirect()->route('produks.index')->with('success', 'Produk berhasil ditambahkan');//Mengarahkan pengguna kembali ke halaman produks.index dengan pesan sukses bahwa produk berhasil ditambahkan
     }
 
-    public function show($id)
+    public function show($id)//menampilkan detail produk tertentu berdasarkan ID
     {
         $produk = Produk::findOrFail($id);
         return view('produks.show', compact('produk'));
     }
 
-    public function edit($id)
+    public function edit($id)//mengambil data karyawan dan produk tertentu berdasarkan ID
     {
         $karyawan = Karyawan::all();
         $produk = Produk::findOrFail($id);
         return view('produks.edit', compact('produk', 'karyawan'));
     }
-    public function update(Request $request, $id)
+    public function update(Request $request, $id)//menerima input untuk memperbarui data produk berdasarkan ID
 {
 
     $request->validate([
@@ -73,13 +73,13 @@ class ProdukController extends Controller
         'Stok' => $request->Stok,
         'Shift_Kerja' => $request->Shift_Kerja,
         'Keterangan' => $request->Keterangan,
-    ];
+    ];//Menyimpan data baru yang akan digunakan untuk memperbarui produk
 
-    $produk->update($data);
+    $produk->update($data);//Memperbarui produk dengan data baru yang diinput
     return redirect()->route('produks.index')->with('success', 'Data Produk berhasil diperbarui.');
 }
 
-    public function detail($id)
+    public function detail($id)//mengambil data produk beserta data karyawan yang terkait
     {
 
         $produk = Produk::with('karyawan')->findOrFail($id);        
@@ -87,7 +87,7 @@ class ProdukController extends Controller
         return view('produks.detail', compact('produk'));
     }
 
-        public function destroy($id)
+        public function destroy($id)//mencari produk berdasarkan ID untuk dihapus
     {
         $produk = Produk::findOrFail($id);
 
