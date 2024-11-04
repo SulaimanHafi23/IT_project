@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mt-2">
-        <h1 style="text-align: center">Halaman Beranda</h1>
+        <h1 style="text-align: center">Halaman </h1>
         <hr>
         <!-- Content -->
         <div class="container-fluid">
