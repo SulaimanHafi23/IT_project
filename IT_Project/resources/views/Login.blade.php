@@ -7,15 +7,38 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .login-container {
+            margin-top: 5%;
+        }
+        .login-card {
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .login-card .card-body {
+            padding: 2rem;
+        }
+        .btn-primary {
+            background-color: #4a76a8;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #395d89;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container mt-5">
+    <div class="container login-container">
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card shadow-sm">
-                    <div class="card-body p-5">
-                        <h3 class="text-center mb-4">Sign In</h3>
+            <div class="col-md-5">
+                <div class="card login-card">
+                    <div class="card-body">
+                        <h3 class="text-center mb-4 text-primary">Sign In</h3>
                         
                         <!-- Error message -->
                         @if($errors->any())
@@ -26,7 +49,7 @@
 
                         <form action="{{ route('login') }}" method="POST">
                             @csrf
-                            <!-- Email input -->
+                            <!-- Username input -->
                             <div class="mb-3">
                                 <label for="Username" class="form-label">Username</label>
                                 <input type="text" id="Username" name="Username" class="form-control" placeholder="Enter your username" required />

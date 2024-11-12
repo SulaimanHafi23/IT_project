@@ -18,7 +18,7 @@ class Penjualan extends Model
         'Id_Penjualan', 
         'Total_Harga', 
         'Id_Karyawan', 
-        'Tanggal_Penjualan', 
+        'Tanggal_Penjualan',
         'Metode_Pembayaran'
     ];
 
@@ -33,3 +33,4 @@ class Penjualan extends Model
         return $this->hasOne(Pembayaran::class, 'Id_Penjualan');
     }
 }
+

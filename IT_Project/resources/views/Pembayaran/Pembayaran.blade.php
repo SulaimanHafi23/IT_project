@@ -1,4 +1,4 @@
-@extends('layouts.Sidebar')
+@extends('layouts.konten')
 @section('content')
     <div class="container mt-2">
         <h1 style="text-align: center">Halaman Pembayaran</h1>

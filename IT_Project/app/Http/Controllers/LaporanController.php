@@ -34,7 +34,6 @@ class LaporanController extends Controller
         $laporan->save();
         return redirect()->route('TampilLaporan')->with('success', 'Laporan berhasil ditambahkan');
     }
-    
 
     function edit($id) {
         $laporan = Laporan::find($id);
@@ -57,10 +56,11 @@ class LaporanController extends Controller
     
     public function detail($id) {
         $laporan = Laporan::find($id);
-        $penjualan = Penjualan::whereBetween('Tanggal_Penjualan', [$laporan->tanggal_mulai, $laporan->tanggal_akhir])->get();
+        $penjualan = Penjualan::whereBetween('Tanggal_Penjualan', 
+        [$laporan->tanggal_mulai, $laporan->tanggal_akhir])->get();
         
         return view('Laporan.DetailLaporan', compact('laporan', 'penjualan'));
-    }    
+    }
 
     public function delete($Id) {
         $laporan = Laporan::find($Id); 

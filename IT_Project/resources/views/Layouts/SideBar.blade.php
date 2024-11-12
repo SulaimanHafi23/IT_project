@@ -1,101 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="{{route('Beranda')}}" class="brand-link">
+        <img src="{{ asset('assets/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+            class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">AdminLTE 3</span>
+    </a>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Apotek Hafidzah</title>
-    <!-- Bootstrap 5.3 CSS -->
-    <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
-        rel="stylesheet">
-</head>
-
-<body class="d-flex flex-column">
     <!-- Sidebar -->
-    <div class="sidebar d-flex flex-column bg-dark text-white">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <i class="bi bi-shop" style="font-size: 3.5rem;"></i>
-            <span class="fs-4 ms-2">Apotek Hafidzah</span>
-        </a>
-        <hr>
-        <div class="profile d-flex align-items-center mt-3">
-            {{-- <img src="https://via.placeholder.com/40" alt="profile" class="rounded-circle me-2"> --}}
-            <i class="bi bi-person-circle" style="font-size: 2.5rem; margin:0px 20px"></i>
-            <div class="dropdown">
-                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
-                    style="background-color: transparent; border: none; color: white;">
-                    Nama Admin
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Logout</a></li>
-                </ul>
+    <div class="sidebar">
+        <!-- Sidebar user (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="{{ asset('assets/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+                <a href="#" class="d-block">Alexander Pierce</a>
             </div>
         </div>
-        <hr style="margin-top: 0px;">
-        <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-                <a href="{{ route('Beranda') }}" class="nav-link text-white {{ Route::is('Beranda') ? 'active' : '' }}">
-                    <i class="bi bi-speedometer2"></i> Beranda
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('TampilAkun') }}"
-                    class="nav-link text-white {{ Route::is('TampilAkun') ? 'active' : '' }}">
-                    <i class="bi bi-person-circle"></i> Data Akun
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('TampilKaryawan') }}"
-                    class="nav-link text-white {{ Route::is('TampilKaryawan') ? 'active' : '' }}">
-                    <i class="bi bi-people"></i> Data Karyawan
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('produks.index') }}"
-                    class="nav-link text-white {{ Route::is('produks.index') ? 'active' : '' }}">
-                    <i class="bi bi-grid"></i> Data Produk
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('TampilPenjualan') }}"
-                    class="nav-link text-white {{ Route::is('TampilPenjualan') ? 'active' : '' }}">
-                    <i class="bi bi-table"></i> Penjualan
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('TampilLaporan') }}"
-                    class="nav-link text-white {{ Route::is('TampilLaporan') ? 'active' : '' }}">
-                    <i class="bi bi-journal"></i> Laporan
-                </a>
-            </li>
-        </ul>
-    </div>
 
-    <!-- Content -->
-    <div class="content">
-        <!-- Header -->
-        <div class="header d-flex justify-content-between align-items-center"
-            style="border-top: 5px solid black; border-bottom: 1px solid #ccc;">
-            <div class="d-flex align-items-center">
-            </div>
-            <div class="icons d-flex align-items-center">
-                <i class="bi bi-search" style="font-size: 2rem; margin:0px 10px"></i>
-                <i class="bi bi-person-circle" style="font-size: 2rem; margin:0px 20px"></i>
+        <!-- SidebarSearch Form -->
+        <div class="form-inline">
+            <div class="input-group" data-widget="sidebar-search">
+                <input class="form-control form-control-sidebar" type="search" placeholder="Search"
+                    aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-sidebar">
+                        <i class="fas fa-search fa-fw"></i>
+                    </button>
+                </div>
             </div>
         </div>
-        @yield('content')
-    </div>
-    <!-- Footer -->
-    <div class="footer">
-        <p>©CopyRight</p>
-    </div>
-    </div>
 
-    <script src="{{ asset('js/scripts.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+                <li class="nav-item">
+                    <a href="{{ route('Beranda')}}" class="nav-link {{ Route::is('Beranda') ? 'active' : '' }}">
+                      <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Beranda</p>
+                    </a>
+                </li>
+                <li class="nav-header">Menu</li>
+                <li class="nav-item">
+                    <a href="{{ route('TampilAkun') }}" class="nav-link {{ Route::is('TampilAkun') ? 'active' : '' }}">
+                      <i class="nav-icon fas fa-user-circle"></i>
+                        <p>
+                            Akun
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('TampilKaryawan') }}" class="nav-link {{ Route::is('TampilKaryawan') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Karyawan
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('produks.index') }}" class="nav-link {{ Route::is('produks.index') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-capsules"></i>
+                        <p>
+                            Produk
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link {{ (Route::is('TampilPenjualan') || Route::is('TampilLaporan')) ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-money-bill-wave"></i>
+                        <p>
+                            Penjualan
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('TampilPenjualan') }}" class="nav-link {{ Route::is('TampilPenjualan') ? 'active' : '' }}">
+                                <i class="far fa-calendar-alt nav-icon"></i>
+                                <p>Penjualan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('TampilLaporan') }}" class="nav-link {{ Route::is('TampilLaporan') ? 'active' : '' }}">
+                                <i class="fas fa-book nav-icon"></i>
+                                <p>Laporan</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

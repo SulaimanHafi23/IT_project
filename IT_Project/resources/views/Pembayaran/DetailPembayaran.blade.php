@@ -1,4 +1,4 @@
-@extends('layouts.Sidebar')
+@extends('layouts.konten')
 @section('content')
     <div class="container mt-2">
         <h1 class="text-center mb-4">Detail Pembayaran Penjualan #{{ $penjualan->Id_Penjualan }}</h1>

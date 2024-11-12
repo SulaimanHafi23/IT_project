@@ -22,7 +22,7 @@ class UserController extends Controller
     function submit(Request $request){
 
         $request->validate([
-            'username' => 'required',
+            'username' => 'required|unique:user,username',
             'password' => 'required',
             'level' => 'required'
         ]);
