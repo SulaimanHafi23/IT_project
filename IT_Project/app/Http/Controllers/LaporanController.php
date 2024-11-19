@@ -67,4 +67,23 @@ class LaporanController extends Controller
         $laporan->delete(); 
         return redirect()->route('TampilLaporan')->with('success', 'data Laporan berhasil dihapus');
     }
+
+    public function cetak(Request $request)
+    {
+        // Ambil filter tanggal jika ada
+        $tanggal_laporan = $request->input('tanggal_laporan');
+    
+        if ($tanggal_laporan) {
+            // Jika tanggal dipilih, ambil data sesuai tanggal tersebut
+            $laporan = Laporan::whereDate('tanggal_laporan', $tanggal_laporan)->get();
+        } else {
+            // Jika tidak ada tanggal, ambil semua data
+            $laporan = Laporan::all();
+        }
+    
+        // Kembalikan view untuk mencetak laporan
+        return view('laporan.CetakLaporan', compact('laporan', 'tanggal_laporan'));
+    }
+    
 }
+

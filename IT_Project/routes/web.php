@@ -55,6 +55,7 @@ Route::get('/edit-laporan/{id}', [LaporanController::class, 'Edit'])->name('Edit
 Route::put('/update-laporan/{id}', [LaporanController::class, 'update'])->name('UpdateLaporan');
 Route::get('/Detail-laporan/{id}', [LaporanController::class, 'Detail'])->name('DetailLaporan');
 Route::delete('/delete-laporan/{id}', [LaporanController::class, 'delete'])->name('DeleteLaporan');
+Route::get('/laporan/cetak', [LaporanController::class, 'cetak'])->name('laporan.cetak');
 
 Route::get('/products', [ProdukController::class, 'index'])->name('produks.index');
 Route::get('/products/create', [ProdukController::class, 'create'])->name('produks.create');

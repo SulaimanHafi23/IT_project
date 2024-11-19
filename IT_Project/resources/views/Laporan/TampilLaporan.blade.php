@@ -31,8 +31,14 @@
                         <div class="card-header">
                             <h3 class="card-title">Data Laporan</h3>
                             <div class="card-tools">
+                                <!-- Tombol Tambah Laporan -->
                                 <a href="{{ route('TambahLaporan') }}">
-                                    <button type="button" class="btn btn btn-primary">Tambah Laporan</button>
+                                    <button type="button" class="btn btn-primary">Tambah Laporan</button>
+                                </a>
+                                
+                                <!-- Tombol Cetak Laporan -->
+                                <a href="{{ route('laporan.cetak') }}" target="_blank">
+                                    <button type="button" class="btn btn-secondary">Cetak Laporan</button>
                                 </a>
                             </div>
                         </div>
