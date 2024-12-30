@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('penjualan', function (Blueprint $table) {
             $table->string('Id_Penjualan')->primary();
             $table->decimal('Total_Harga', 10, 2);
-            $table->foreignId('Id_Karyawan')->constrained('karyawan', 'Id_Karyawan')->onDelete('cascade');
+            $table->unsignedBigInteger('Id_Karyawan')->nullable();
+            $table->foreign('Id_Karyawan')->references('Id_Karyawan')->on('karyawan')->onDelete('set null');
             $table->date('Tanggal_Penjualan');
             $table->string('Metode_Pembayaran');
             $table->timestamps();

@@ -14,13 +14,6 @@
                 </div>
             </div>
         </div><!-- /.container-fluid -->
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <i class="bi bi-check-square-fill"></i>
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
     </section>
 
     <section class="content">
@@ -62,11 +55,11 @@
                                                 <a href="{{ route('EditKaryawan', $data->Id_Karyawan) }}"
                                                     class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                                                 <form action="{{ route('DeleteKaryawan', $data->Id_Karyawan) }}"
-                                                    method="POST" class="d-inline"
-                                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                                    method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                                    <button type="button" onclick="hapus(this)" class="btn btn-danger btn-sm"><i
+                                                            class="fas fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

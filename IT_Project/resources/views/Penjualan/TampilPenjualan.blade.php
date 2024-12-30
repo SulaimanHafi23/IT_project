@@ -14,13 +14,6 @@
                 </div>
             </div>
         </div>
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <i class="bi bi-check-square-fill"></i>
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
     </section>
 
     <section class="content">
@@ -49,34 +42,33 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        @foreach ($penjualan as $pjln)
-                                            <tr>
-                                                <td>{{ $pjln->Id_Penjualan }}</td>
-                                                <td>Rp {{ number_format($pjln->Total_Harga, 0, ',', '.') }}</td>
-                                                <td>{{ $pjln->Tanggal_Penjualan }}</td>
-                                                <td>{{ $pjln->Metode_Pembayaran }}</td>
-                                                <td>
-                                                    <a href="{{ route('DetailPenjualan', $pjln->Id_Penjualan) }}"
-                                                        class="btn btn-info btn-sm">Detail</a>
-                                                    <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-print"></i></a>
-                                                    <form action="{{ route('DeletePenjualan', $pjln->Id_Penjualan) }}"
-                                                        method="POST" class="d-inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="return confirm('Apakah Anda yakin ingin menghapus penjualan ini?')"><i class="fas fa-trash"></i></button>
-                                                    </form>
-                                                </td>
-                                                <td>
-                                                    @if ($pjln->Metode_Pembayaran === 'Transfer')
-                                                        <a href="{{ route('DetailPembayaran', $pjln->Id_Penjualan) }}"
-                                                            class="btn btn-success">
-                                                            <i class="bi bi-info-circle"></i> Lihat Pembayaran
-                                                        </a>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                    @foreach ($penjualan as $pjln)
+                                        <tr>
+                                            <td>{{ $pjln->Id_Penjualan }}</td>
+                                            <td>Rp {{ number_format($pjln->Total_Harga, 0, ',', '.') }}</td>
+                                            <td>{{ $pjln->Tanggal_Penjualan }}</td>
+                                            <td>{{ $pjln->Metode_Pembayaran }}</td>
+                                            <td>
+                                                <a href="{{ route('DetailPenjualan', $pjln->Id_Penjualan) }}"
+                                                    class="btn btn-info btn-sm">Detail</a>
+                                                <form action="{{ route('DeletePenjualan', $pjln->Id_Penjualan) }}"
+                                                    method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" onclick="hapus(this)" class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-trash"></i></button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                @if ($pjln->Metode_Pembayaran === 'Transfer')
+                                                    <a href="{{ route('DetailPembayaran', $pjln->Id_Penjualan) }}"
+                                                        class="btn btn-success">
+                                                        <i class="bi bi-info-circle"></i> Lihat Pembayaran
+                                                    </a>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>

@@ -14,14 +14,8 @@
                 </div>
             </div>
         </div><!-- /.container-fluid -->
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <i class="bi bi-check-square-fill"></i>
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
     </section>
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -66,8 +60,8 @@
                                                         method="POST" class="d-inline">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?')"><i class="fas fa-trash"></i></button>
+                                                        <button type="button" onclick="hapus(this)" class="btn btn-danger btn-sm"><i
+                                                                class="fas fa-trash"></i></button>
                                                     </form>
                                                 </form>
                                             </td>

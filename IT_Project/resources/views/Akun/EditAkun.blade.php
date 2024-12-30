@@ -9,18 +9,14 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('Beranda') }}">Home</a></li>
-                        <li class="breadcrumb-item active"><a href="{{ route('TampilAkun') }}">Akun</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('TampilAkun') }}">Akun</a></li>
                         <li class="breadcrumb-item active">Edit Akun</li>
                     </ol>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
-        @if ($errors->has('username'))
-            <div class="alert alert-danger">
-                {{ $errors->first('username') }}
-            </div>
-        @endif
+        </div>
     </section>
+
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -33,26 +29,48 @@
                             <form action="{{ route('UpdateAkun', $user->id) }}" method="post">
                                 @csrf
                                 @method('PUT')
+
+                                <!-- Username -->
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Username</label>
-                                    <input type="text" class="form-control" value="{{ $user->name }}" id="name"
-                                        name="name" required>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                           value="{{ old('name', $user->name) }}" id="name" name="name" required>
+                                    @error('name')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
 
+                                <!-- Email -->
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">email</label>
-                                    <input type="email" class="form-control" value="{{ $user->email }}" id="Password"
-                                        name="email" required>
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                           value="{{ old('email', $user->email) }}" id="email" name="email" required>
+                                    @error('email')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
 
+                                <!-- Password -->
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" value="{{ $user->password  }}" id="password"
-                                        name="password" required>
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                           id="password" name="password">
+                                    @error('password')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
 
+                                <!-- Checkbox Show Password -->
                                 <input type="checkbox" onclick="togglePassword()"> Show Password
                                 <br>
+
+                                <!-- Submit Button -->
                                 <button type="submit" class="btn btn-primary">Edit</button>
                                 <a href="{{ route('TampilAkun') }}" class="btn btn-secondary">Batal</a>
                             </form>
@@ -63,7 +81,6 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/scripts.js') }}"></script>
     <script>
         function togglePassword() {
             const passwordField = document.getElementById("password");

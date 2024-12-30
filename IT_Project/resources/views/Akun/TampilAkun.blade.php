@@ -8,19 +8,12 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{route('Beranda')}}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('Beranda') }}">Home</a></li>
                         <li class="breadcrumb-item active">Akun</li>
                     </ol>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <i class="bi bi-check-square-fill"></i>
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
     </section>
 
     <!-- Main content -->
@@ -37,7 +30,7 @@
                                 </a>
                             </div>
                         </div>
-                        
+
                         <div class="card-body">
                             <table id="example2" class="table table-bordered table-striped">
                                 <thead>
@@ -45,7 +38,8 @@
                                         <th>No</th>
                                         <th>Id Akun</th>
                                         <th>username</th>
-                                        <th>Email</th>
+                                        <th>email</th>
+                                        <th>Level</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -55,6 +49,7 @@
                                         <td>{{ $dataakun->id }}</td>
                                         <td>{{ $dataakun->name }}</td>
                                         <td>{{ $dataakun->email }}</td>
+                                        <td>{{ $dataakun->level }}</td>
                                         <td>
                                             <a href="{{ route('EditAkun', $dataakun->id) }}">
                                                 <button type="button" class="btn btn-warning btn-sm">
@@ -65,8 +60,7 @@
                                                 style="display: inline-block;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus akun ini?');">
+                                                <button type="button" onclick="hapus(this)" class="btn btn-danger btn-sm" id="delete-button">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </form>
@@ -78,8 +72,9 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Id Akun</th>
-                                        <th>username</th>
-                                        <th>Email</th>
+                                        <th>name</th>
+                                        <th>email</th>
+                                        <th>Level</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </tfoot>
@@ -96,5 +91,5 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-    
+
 @endsection

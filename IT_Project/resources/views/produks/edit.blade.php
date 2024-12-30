@@ -41,28 +41,43 @@
                                 @method('PUT')
                                 <div class="mb-3">
                                     <label for="Nama_Produk" class="form-label">Nama Produk</label>
-                                    <input type="text" name="Nama_Produk" class="form-control" id="Nama_Produk"
-                                        value="{{ $produk->Nama_Produk }}" required>
+                                    <input type="text" name="Nama_Produk" class="form-control @error('Nama_Produk') is-invalid @enderror" id="Nama_Produk"
+                                        value="{{ old('Nama_Produk', $produk->Nama_Produk) }}" required>
+                                    @error('Nama_Produk')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="Kategori" class="form-label">Kategori</label>
-                                    <input type="text" name="Kategori" class="form-control" id="Kategori"
-                                        value="{{ $produk->Kategori }}" required>
+                                    <input type="text" name="Kategori" class="form-control @error('Kategori') is-invalid @enderror" id="Kategori"
+                                        value="{{ old('Kategori', $produk->Kategori) }}" required>
+                                    @error('Kategori')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="Stok" class="form-label">Stok</label>
-                                    <input type="text" name="Stok" class="form-control" id="Stok"
-                                        value="{{ $produk->Stok }}" required>
+                                    <input type="number" name="Stok" class="form-control @error('Stok') is-invalid @enderror" id="Stok"
+                                        value="{{ old('Stok', $produk->Stok) }}" required>
+                                    @error('Stok')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="Keterangan" class="form-label">Keterangan</label>
-                                    <textarea name="Keterangan" class="form-control" id="Keterangan" rows="4" value="{{ $produk->Keterangan }}"
-                                        required>{{ $produk->Keterangan }}</textarea>
+                                    <textarea name="Keterangan" class="form-control @error('Keterangan') is-invalid @enderror" id="Keterangan" rows="4"
+                                        required>{{ old('Keterangan', $produk->Keterangan) }}</textarea>
+                                    @error('Keterangan')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="Harga_Satuan" class="form-label">Harga Satuan</label>
-                                    <input type="number" name="Harga_Satuan" class="form-control" id="Harga_Satuan"
-                                        value="{{ $produk->Harga_Satuan }}" required>
+                                    <input type="number" name="Harga_Satuan" class="form-control @error('Harga_Satuan') is-invalid @enderror" id="Harga_Satuan"
+                                        value="{{ old('Harga_Satuan', $produk->Harga_Satuan) }}" required>
+                                    @error('Harga_Satuan')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                 <a href="{{ route('produks.index') }}" class="btn btn-secondary">Batal</a>

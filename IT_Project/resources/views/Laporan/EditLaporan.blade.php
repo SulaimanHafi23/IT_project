@@ -17,6 +17,7 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
+    
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -36,13 +37,19 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="tanggal_mulai">Tanggal Mulai</label>
-                                    <input type="date" name="tanggal_mulai" class="form-control"
-                                        value="{{ $laporan->tanggal_mulai }}" required>
+                                    <input type="date" name="tanggal_mulai" class="form-control @error('tanggal_mulai') is-invalid @enderror"
+                                        value="{{ old('tanggal_mulai', $laporan->tanggal_mulai) }}" required>
+                                    @error('tanggal_mulai')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="tanggal_akhir">Tanggal Akhir</label>
-                                    <input type="date" name="tanggal_akhir" class="form-control"
-                                        value="{{ $laporan->tanggal_akhir }}" required>
+                                    <input type="date" name="tanggal_akhir" class="form-control @error('tanggal_akhir') is-invalid @enderror"
+                                        value="{{ old('tanggal_akhir', $laporan->tanggal_akhir) }}" required>
+                                    @error('tanggal_akhir')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <button type="submit" class="btn btn-primary">Update</button>
                                 <a href="{{ route('TampilLaporan') }}" class="btn btn-secondary">Batal</a>

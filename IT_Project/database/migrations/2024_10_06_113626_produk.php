@@ -19,7 +19,9 @@ return new class extends Migration
             $table->integer('Stok');
             $table->date('Tanggal_Masuk');
             $table->text('Keterangan')->nullable();
-            $table->foreignId('Id_Karyawan')->constrained('karyawan', 'Id_Karyawan')->onDelete('cascade'); // Foreign key
+            $table->unsignedBigInteger('Id_Karyawan')->nullable();
+            $table->foreign('Id_Karyawan')->references('Id_Karyawan')->on('karyawan')->onDelete('set null');
+            // $table->foreignId('Id_Karyawan')->constrained('karyawan', 'Id_Karyawan'); // Foreign key
             $table->timestamps();
         });
     }

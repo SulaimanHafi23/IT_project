@@ -21,18 +21,28 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header" style="padding:6px 20px;">
                             <h3 class="card-title">Detail Laporan ID: {{ $laporan->Id_Laporan }}</h3>
+                            <div class="card-tools" >
+                                <!-- Tombol Cetak Laporan -->
+                                <a href="{{ route('laporan.cetak', $laporan->Id_Laporan) }}" target="_blank">
+                                    <button type="button" class="btn btn-secondary" style="margin: 0px">Cetak Laporan</button>
+                                </a>
+                            </div>
+
                         </div>
                         <div class="card-body">
-                            <strong><h2 class="card-title">Tanggal Laporan: {{ $laporan->tanggal_laporan }}</h2></strong>
+                            <strong>
+                                <h2 class="card-title"><Strong>Tanggal Laporan :</Strong> {{ $laporan->tanggal_laporan }}</h2>
+                            </strong>
                             <br><br>
-                            <p class="card-text">Tanggal Mulai: {{ $laporan->tanggal_mulai }}</p>
-                            <p class="card-text">Tanggal Akhir: {{ $laporan->tanggal_akhir }}</p>
+                            <p class="card-text">Tanggal Mulai : {{ $laporan->tanggal_mulai }}</p>
+                            <p class="card-text">Tanggal Akhir : {{ $laporan->tanggal_akhir }}</p>
 
                             <h3><strong>Daftar Penjualan</strong></h3>
+                            <hr>
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="example2" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>No</th>

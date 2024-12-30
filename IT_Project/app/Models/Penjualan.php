@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Karyawan;
-use App\Models\Penjualan;
+// use App\Models\Penjualan;
 use App\Models\DetailPenjualan;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

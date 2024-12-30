@@ -2,81 +2,115 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
-use Illuminate\Support\Str;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Laravel\Fortify\Fortify;
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\User;
-use Illuminate\Auth\Events\Registered;
-use Laravel\Fortify\Contracts\CreatesNewUsers;
-use Laravel\Fortify\Contracts\RegisterResponse;
-use Laravel\Fortify\Contracts\RegisterViewResponse;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    function Tampil(){
-        $user = User::get(); 
-        return view('Akun.TampilAkun', compact('user'));
-    }
-    
-    function Tambah(){
-        return view('Akun.TambahAkun');
-    }
+    // Menampilkan semua user
+    public function Tampil()
+    {
+        if (Auth::check() && Auth::user()->level === 'admin') {
+            $user = User::all();
 
-    
-    function submit(Request $request){
-        
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'level' => 'required'
-        ]);
-
-        if ($request->level === 'admin'){
-            $admin = new Admin();
-            $admin->name = $request->name;
-            $admin->email = $request->email;
-            $admin->password = bcrypt($request->password);
-            $admin->save();
+            return view('Akun.TampilAkun', compact('user'));
         }
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password); 
-        $user->save();
-
-        return redirect()->route('TampilAkun')->with('success', 'Akun berhasil ditambahkan');
-    }
-    
-    function edit($id){
-        $user = User::find($id); 
-        return view('Akun.EditAkun', compact('user')); 
+        return redirect()->back()->with('warning', 'Anda tidak memiliki hak akses untuk melihat halaman ini.');
     }
 
-    public function update(Request $request, $id) {
+    // Menampilkan halaman tambah user
+    public function Tambah()
+    {
+        if (Auth::check() && Auth::user()->level === 'admin') {
+            return view('Akun.TambahAkun');
+        }
+
+        return redirect()->back()->with('warning', 'Anda tidak memiliki hak akses untuk melihat halaman ini.');
+    }
+
+    // Menyimpan user baru
+    public function submit(Request $request)
+    {
+        if (Auth::check() && Auth::user()->level === 'admin') {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email|max:255',
+                'level' => 'required|in:admin,user',
+                'password' => 'required|min:6',
+            ]);
+
+            User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'level' => $request->level,
+                'password' => Hash::make($request->password),
+            ]);
+
+            return redirect()->route('TampilAkun')->with('success', 'Berhasil menambahkan akun baru.');
+        }
+
+        return redirect()->back()->with('warning', 'Anda tidak memiliki hak akses untuk melakukan tindakan ini.');
+    }
+
+    // Menampilkan halaman edit user
+    public function Edit($id)
+    {
+        if (Auth::check() && Auth::user()->level === 'admin') {
+            $user = User::findOrFail($id);
+
+            return view('Akun.EditAkun', compact('user'));
+        }
+
+        return redirect()->back()->with('warning', 'Anda tidak memiliki hak akses untuk melihat halaman ini.');
+    }
+
+    // Memperbarui data user
+    public function update(Request $request, $id)
+    {
+        if (Auth::check() && Auth::user()->level === 'admin') {
+            $user = User::findOrFail($id);
+
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email,' . $id,
+                'password' => 'nullable|min:6',
+            ]);
+
+            $user->name = $request->name;
+            $user->email = $request->email;
+            if ($request->password) {
+                $user->password = Hash::make($request->password);
+            }
+
+            $user->save();
+
+            return redirect()->route('TampilAkun')->with('success', 'Berhasil memperbarui data akun.');
+        }
+
+        return redirect()->back()->with('warning', 'Anda tidak memiliki hak akses untuk melakukan tindakan ini.');
+    }
+
+    // Menghapus user
+    public function delete($id)
+    {
+        if (Auth::check() && Auth::user()->level === 'admin') {
+            $user = User::findOrFail($id);
+            try {
+                $user->delete();
+                
+                return redirect()->route('TampilAkun')->with('success', 'Berhasil menghapus akun.');
+
+            } catch (\Exception $e) {
         
-        $user = User::find($id);
-        
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-    
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password); 
-        $user->update();
+                // Tampilkan pesan error umum
+                return redirect()->back()->with('error', 'Tidak dapat menghapus data Akun, silahkan Hapus data karyawan terlebih dahulu.');
+            }
+        }
 
-        return redirect()->route('TampilAkun')->with('success', 'Akun berhasil diupdate');
-    }
-
-    public function delete($id) {
-        $user = User::find($id); 
-        $user->delete(); 
-        return redirect()->route('TampilAkun')->with('success', 'Akun berhasil dihapus');
+        return redirect()->back()->with('warning', 'Anda tidak memiliki hak akses untuk melakukan tindakan ini.');
     }
 }

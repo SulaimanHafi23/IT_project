@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Produk;
+// use App\Models\Produk;
 use App\Models\Karyawan;
 use App\Models\DetailPenjualan;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+    
 class Produk extends Model
 {
     use HasFactory;
@@ -27,8 +27,9 @@ class Produk extends Model
     // Relasi dengan Detail Penjualan
     public function detailPenjualan()
     {
-        return $this->belongsTo(DetailPenjualan::class, 'Id_Produk', 'Id_Produk');
+        return $this->hasMany(DetailPenjualan::class, 'id_produk');
     }
+
 
     public function karyawan()
     {

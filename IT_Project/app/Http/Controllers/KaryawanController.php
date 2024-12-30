@@ -5,117 +5,156 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class KaryawanController extends Controller
 {
-    public function tampil()//mengambil semua data karyawan menggunakan Karyawan::all().
+    // Menampilkan semua data karyawan
+    public function tampil()
     {
-        $karyawan = Karyawan::all();
-        return view('Karyawan.TampilKaryawan', compact('karyawan'));
-    }
-
-    public function Tambah()//mengambil semua data pengguna (User) untuk ditampilkan pada tampilan Karyawan.TambahKaryawan
-    {
-        $users = User::all();
-        return view('Karyawan.TambahKaryawan', compact('users'));
-    }
-
-    public function Submit(Request $request)// menerima input dari form
-    {
-        $request->validate([// untuk memvalidasi data input sesuai aturan
-            'Nama_Karyawan' => 'required|string|max:255',
-            'Alamat' => 'required',
-            'Nomor_Telepon' => 'required|string|max:15',
-            'Posisi_Jabatan' => 'required|string|max:255',
-            'Tanggal_Lahir' => 'required|date',
-            'Shift_Kerja' => 'required|string|max:255',
-            'Gaji' => 'required|numeric|min:0',
-            'Tanggal_Masuk' => 'required|date',
-            'Gambar_Karyawan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'Id_User' => 'required|exists:users,id',
-        ]);
-
-        $gambarPath = null;
-        if ($request->hasFile('Gambar_Karyawan')) {
-            $gambarPath = $request->file('Gambar_Karyawan')->store('karyawan', 'public');
+        if (Auth::check() && Auth::user()->level === 'admin') {
+            $karyawan = Karyawan::all();
+            return view('Karyawan.TampilKaryawan', compact('karyawan'));
         }
 
-        Karyawan::create([
-            'Nama_Karyawan' => $request->Nama_Karyawan,
-            'Alamat' => $request->Alamat,
-            'Nomor_Telepon' => $request->Nomor_Telepon,
-            'Posisi_Jabatan' => $request->Posisi_Jabatan,
-            'Tanggal_Lahir' => $request->Tanggal_Lahir,
-            'Shift_Kerja' => $request->Shift_Kerja,
-            'Gaji' => $request->Gaji,
-            'Tanggal_Masuk' => $request->Tanggal_Masuk,
-            'Gambar_Karyawan' => $gambarPath,
-            'Id_User' => $request->Id_User,
-        ]);//Membuat entitas karyawan baru di database menggunakan data yang diambil dari form input
-
-        return redirect()->route('TampilKaryawan')->with('success', 'Data Karyawan berhasil ditambahkan.');//Mengarahkan kembali pengguna ke halaman tampil karyawan dengan pesan sukses
+        return redirect()->back()->with('warning', 'Anda tidak memiliki akses ke halaman ini.');
     }
 
-    public function Edit($id)//mengambil data karyawan berdasarkan ID
+    // Menampilkan form tambah karyawan
+    public function Tambah()
     {
-        $karyawan = Karyawan::findOrFail($id);
-        return view('Karyawan.EditKaryawan', compact('karyawan'));
+        if (Auth::check() && Auth::user()->level === 'admin') {
+            $user = User::all();
+            return view('Karyawan.TambahKaryawan', compact('user'));
+        }
+
+        return redirect()->back()->with('warning', 'Anda tidak memiliki akses ke halaman ini.');
     }
 
-    public function update(Request $request, $id)//menerima input form untuk memperbarui data karyawan berdasarkan ID
+    // Menyimpan data karyawan baru
+   public function Submit(Request $request)
     {
-        $request->validate([
-            'Nama_Karyawan' => 'required|string|max:255',
-            'Alamat' => 'required|string',
-            'Nomor_Telepon' => 'required|string',
-            'Posisi_Jabatan' => 'required|string',
-            'Tanggal_Lahir' => 'required|date',
-            'Shift_Kerja' => 'required|string',
-            'Gaji' => 'required|numeric',
-            'Id_User' => 'required|exists:user,Id_User',
-            'Gambar_Karyawan' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+        if (Auth::check() && Auth::user()->level === 'admin') {
+            $request->validate([
+                'Nama_Karyawan'   => 'required|string|max:255',
+                'Alamat'          => 'required|string',
+                'Nomor_Telepon'   => 'required|string|max:15',
+                'Posisi_Jabatan'  => 'required|string|max:255',
+                'Tanggal_Lahir'   => 'required|date',
+                'Shift_Kerja'     => 'required|string|max:255',
+                'Gaji'            => 'required|numeric|min:0',
+                'Tanggal_Masuk'   => 'required|date',
+                'Gambar_Karyawan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'Id_User'         => 'required|exists:users,id|unique:karyawan,Id_User',
+            ], [
+                'Id_User.unique' => 'Akun ini sudah digunakan oleh karyawan lain.',
+            ]);
 
-        $karyawan = Karyawan::findOrFail($id);//Mencari karyawan berdasarkan ID. Jika tidak ditemukan, fungsi ini akan memunculkan error
-
-        if ($request->hasFile('Gambar_Karyawan')) {
-            if ($karyawan->Gambar_Karyawan && Storage::exists('public/' . $karyawan->Gambar_Karyawan)) {
-                Storage::delete('public/' . $karyawan->Gambar_Karyawan);
+            $gambarPath = null;
+            if ($request->hasFile('Gambar_Karyawan')) {
+                $gambarPath = $request->file('Gambar_Karyawan')->store('karyawan', 'public');
             }
-        
-            $gambarPath = $request->file('Gambar_Karyawan')->store('karyawan', 'public');
-            $karyawan->Gambar_Karyawan = $gambarPath;
+
+            Karyawan::create([
+                'Nama_Karyawan'   => $request->Nama_Karyawan,
+                'Alamat'          => $request->Alamat,
+                'Nomor_Telepon'   => $request->Nomor_Telepon,
+                'Posisi_Jabatan'  => $request->Posisi_Jabatan,
+                'Tanggal_Lahir'   => $request->Tanggal_Lahir,
+                'Shift_Kerja'     => $request->Shift_Kerja,
+                'Gaji'            => $request->Gaji,
+                'Tanggal_Masuk'   => $request->Tanggal_Masuk,
+                'Gambar_Karyawan' => $gambarPath,
+                'Id_User'         => $request->Id_User,
+            ]);
+
+            return redirect()->route('TampilKaryawan')->with('success', 'Berhasil menambahkan karyawan.');
         }
-           
-        $karyawan->Nama_Karyawan = $request->Nama_Karyawan;
-        $karyawan->Alamat = $request->Alamat;
-        $karyawan->Nomor_Telepon = $request->Nomor_Telepon;
-        $karyawan->Posisi_Jabatan = $request->Posisi_Jabatan;
-        $karyawan->Tanggal_Lahir = $request->Tanggal_Lahir;
-        $karyawan->Shift_Kerja = $request->Shift_Kerja;
-        $karyawan->Gaji = $request->Gaji;
-        $karyawan->Id_User = $request->Id_User;
-        $karyawan->update();
-        return redirect()->route('TampilKaryawan')->with('success', 'Data karyawan berhasil diperbarui.');
+
+        return redirect()->back()->with('warning', 'Anda tidak memiliki akses untuk melakukan tindakan ini.');
     }
 
-
-    public function Detail($id)//menampilkan detail karyawan tertentu berdasarkan ID
+    // Menampilkan form edit karyawan
+    public function Edit($id)
     {
-        $karyawan = Karyawan::findOrFail($id);
-        return view('Karyawan.DetailKaryawan', compact('karyawan'));
+        if (Auth::check() && Auth::user()->level === 'admin') {
+            $karyawan = Karyawan::findOrFail($id);
+            return view('Karyawan.EditKaryawan', compact('karyawan'));
+        } 
+
+        return redirect()->back()->with('warning', 'Anda tidak memiliki akses ke halaman ini.');
     }
 
+    // Memperbarui data karyawan
+    public function update(Request $request, $id)
+    {
+        if (Auth::check() && Auth::user()->level === 'admin') {
+            $karyawan = Karyawan::findOrFail($id);
+
+            $request->validate([
+                'Nama_Karyawan'   => 'required|string|max:255',
+                'Alamat'          => 'required|string',
+                'Nomor_Telepon'   => 'required|string|max:15',
+                'Posisi_Jabatan'  => 'required|string|max:255',
+                'Tanggal_Lahir'   => 'required|date',
+                'Shift_Kerja'     => 'required|string|max:255',
+                'Gaji'            => 'required|numeric|min:0',
+                'Gambar_Karyawan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'Id_User'         => 'required|exists:users,id|unique:karyawan,Id_User',
+            ], [
+                'Id_User.unique' => 'Akun ini sudah digunakan oleh karyawan lain.',
+            ]);
+
+            if ($request->hasFile('Gambar_Karyawan')) {
+                if ($karyawan->Gambar_Karyawan && Storage::exists('public/' . $karyawan->Gambar_Karyawan)) {
+                    Storage::delete('public/' . $karyawan->Gambar_Karyawan);
+                }
+                $gambarPath = $request->file('Gambar_Karyawan')->store('karyawan', 'public');
+                $karyawan->Gambar_Karyawan = $gambarPath;
+            }
+
+            $karyawan->update($request->except('Gambar_Karyawan'));
+
+            return redirect()->route('TampilKaryawan')->with('success', 'Berhasil memperbarui data karyawan.');
+        }
+
+        return redirect()->back()->with('warning', 'Anda tidak memiliki akses untuk melakukan tindakan ini.');
+    }
+
+    // Menampilkan detail karyawan
+    public function Detail($id)
+    {
+        if (Auth::check() && Auth::user()->level === 'admin') {
+            $karyawan = Karyawan::findOrFail($id);
+            return view('Karyawan.DetailKaryawan', compact('karyawan'));
+        }
+
+        return redirect()->back()->with('warning', 'Anda tidak memiliki akses ke halaman ini.');
+    }
+
+    // Menghapus data karyawan
+    public function delete($id)
+    {
+        if (Auth::check() && Auth::user()->level === 'admin') {
+            try {
+                $karyawan = Karyawan::findOrFail($id);
     
-    public function delete($id)// menghapus data karyawan berdasarkan ID
-    {
-        $karyawan = Karyawan::find($id);
-        if ($karyawan->Gambar_Karyawan && Storage::exists('public/' . $karyawan->Gambar_Karyawan)) {
-            Storage::delete('public/' . $karyawan->Gambar_Karyawan);
+                if ($karyawan->Gambar_Karyawan && Storage::exists('public/' . $karyawan->Gambar_Karyawan)) {
+                    Storage::delete('public/' . $karyawan->Gambar_Karyawan);
+                }
+    
+                $karyawan->delete();
+    
+                return redirect()->route('TampilKaryawan')->with('success', 'Berhasil menghapus data karyawan.');
+            } catch (\Exception $e) {
+        
+                return redirect()->back()->with('error', 'Tidak dapat menghapus data Karyawan, silahkan Hapus data yang bersngkutan dengan karyawan terlebih dahulu.');
+            }
         }
-        $karyawan->delete();
-        return redirect()->route('TampilKaryawan')->with('success', 'Karyawan berhasil dihapus.');
+
+        return redirect()->back()->with('warning', 'Anda tidak memiliki akses untuk melakukan tindakan ini.');
     }
 }

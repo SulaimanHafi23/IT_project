@@ -44,36 +44,34 @@
                                 <div class="row mb-3">
                                     <div class="col-md-3">
                                         <label for="Tanggal_Penjualan" class="form-label">Tanggal</label>
-                                        <input type="text" class="form-control" id="Tanggal_Penjualan"
+                                        <input type="text" class="form-control @error('Tanggal_Penjualan') is-invalid @enderror" id="Tanggal_Penjualan"
                                             value="{{ date('Y-m-d') }}" disabled>
                                         <input type="hidden" name="Tanggal_Penjualan" value="{{ date('Y-m-d') }}">
+                                        @error('Tanggal_Penjualan')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                    <div class="col-md-3">
-                                        <label for="Id_Karyawan" class="form-label">Kasir</label>
-                                        <select class="form-select" id="Id_Karyawan" name="Id_Karyawan" required>
-                                            <option value="" disabled selected>Pilih Kasir</option>
-                                            @foreach ($karyawan as $kasir)
-                                                <option value="{{ $kasir->Id_Karyawan }}">{{ $kasir->Nama_Karyawan }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <label for="produk" class="form-label">Produk</label>
-                                        <select class="form-select" id="produk" name="Id_Produk">
+                                        <select class="form-control select2 @error('Id_Produk') is-invalid @enderror" style="width: 100%;" id="produk" name="Id_Produk">
                                             <option value="" disabled selected>Pilih Produk</option>
                                             @foreach ($produk as $item)
-                                                <option value="{{ $item->Id_Produk }}"
-                                                    data-harga="{{ $item->Harga_Satuan }}">
+                                                <option value="{{ $item->Id_Produk }}" data-harga="{{ $item->Harga_Satuan }}">
                                                     {{ $item->Nama_Produk }}
                                                 </option>
                                             @endforeach
                                         </select>
+                                        @error('Id_Produk')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="col-md-1">
                                         <label for="Jumlah" class="form-label">Jumlah</label>
-                                        <input type="number" class="form-control" id="Jumlah" name="Jumlah" required
+                                        <input type="number" class="form-control @error('Jumlah') is-invalid @enderror" id="Jumlah" name="Jumlah" required
                                             min="1">
+                                        @error('Jumlah')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="col-md-2 d-flex align-items-end">
                                         <button type="button" class="btn btn-primary w-100" id="add-product"><i
@@ -124,16 +122,22 @@
                                 <div class="row mb-3">
                                     <div class="col-md-4">
                                         <label for="Metode_Pembayaran" class="form-label">Metode Pembayaran</label>
-                                        <select id="Metode_Pembayaran" class="form-select" name="Metode_Pembayaran"
+                                        <select id="Metode_Pembayaran" class="form-control select2 @error('Metode_Pembayaran') is-invalid @enderror" name="Metode_Pembayaran"
                                             required>
                                             <option value="Tunai" selected>Tunai</option>
                                             <option value="Transfer">Transfer</option>
                                         </select>
+                                        @error('Metode_Pembayaran')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="col-md-4">
                                         <label for="uang" class="form-label">Uang</label>
-                                        <input type="number" class="form-control" id="uang" name="uang"
+                                        <input type="number" class="form-control @error('uang') is-invalid @enderror" id="uang" name="uang"
                                             value="">
+                                        @error('uang')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="col-md-4">
                                         <label for="kembalian" class="form-label">Kembalian</label>
@@ -208,10 +212,6 @@
                 const total = parseFloat($('#total-amount').val()) || 0;
                 const kembalian = uang - total;
                 $('#kembalian').val(kembalian >= 0 ? kembalian : 0);
-            });
-
-            $('#transaction-form').submit(function(e) {
-
             });
 
             function updateTotal() {

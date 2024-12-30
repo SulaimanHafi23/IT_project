@@ -1,5 +1,4 @@
-@extends('layouts.konten')
-@section('content')
+
 @extends('layouts.konten')
 @section('content')
     <section class="content-header">
@@ -46,6 +45,7 @@
                                 </div>
 
                                 <h2 class="my-4">Detail Pembayaran</h2>
+                                
                                 @if($penjualan->pembayaran)
                                 <div class="mb-3">
                                     <p><strong>ID Pembayaran:</strong> {{ $penjualan->pembayaran->Id_Pembayaran }}</p>
@@ -58,9 +58,15 @@
                                 </div>
                                 <div class="mb-3">
                                     <p><strong>Status:</strong> 
-                                        <span class="badge badge-pill {{ $penjualan->pembayaran->Status_Pembayaran == 'sukses' ? 'badge-success' : 'badge-danger' }}">
+                                        <span class="badge badge-pill {{ $penjualan->pembayaran->Status_Pembayaran == 'Terbayar' ? 'badge-success' : 'badge-danger' }}">
                                             {{ ucfirst($penjualan->pembayaran->Status_Pembayaran) }}
                                         </span>
+                                        @if ($penjualan->pembayaran->Status_Pembayaran === 'Terbuat')
+                                        <div class="text-center mt-2">
+                                            <button id="pay-button" class="btn btn-primary">Lanjutkan Pembayaran</button>
+                                        </div>
+                                            
+                                        @endif
                                     </p>
                                 </div>   
                                 @else
@@ -73,4 +79,29 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        // For example trigger on button clicked, or any time you need
+        var payButton = document.getElementById('pay-button');
+        payButton.addEventListener('click', function () {
+          // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+          window.snap.pay('{{$penjualan->pembayaran->Referensi_Pembayaran}}', {
+            onSuccess: function(result){
+              /* You may add your own implementation here */
+              alert("Pembayaran Berhasil!"); console.log(result);
+            },
+            onPending: function(result){
+              /* You may add your own implementation here */
+              alert("Menunggu Pembayaran anda!"); console.log(result);
+            },
+            onError: function(result){
+              /* You may add your own implementation here */
+              alert("Pembayaran Gagal"); console.log(result);
+            },
+            onClose: function(){
+              /* You may add your own implementation here */
+              alert('Kamu Menutup Tampilan Pembayaran Tanpa Melakukan Pembayaran');
+            }
+          })
+        });
+      </script>
 @endsection 

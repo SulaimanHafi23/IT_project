@@ -1,9 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ route('Beranda') }}" class="brand-link">
-        <img src="{{ asset('assets/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+    <a href="{{ route('Beranda') }}" class="brand-link" style="padding: 20px 0px 10px 0px;">
+        <img src="{{ asset('assets/img/Apotek Hafidzah.png') }}" alt="Logo"
+            class="brand-image" style="opacity: .8; width:100%; height: 100%; margin-left:0px;"><br>
     </a>
 
     <!-- Sidebar -->
@@ -11,10 +10,10 @@
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ asset('assets/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+                {{-- <img src="{{ asset('assets/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image"> --}}
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{Auth::user()->name}}</a>
+                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
             </div>
         </div>
 
@@ -35,76 +34,93 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-                <li class="nav-item">
-                    <a href="{{ route('Beranda') }}" class="nav-link {{ Route::is('Beranda') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>Beranda</p>
-                    </a>
-                </li>
-                <li class="nav-header">Menu</li>
-                <li class="nav-item">
-                    <a href="{{ route('TampilAkun') }}" class="nav-link {{ Route::is('TampilAkun') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-user-circle"></i>
-                        <p>
-                            Akun
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('TampilKaryawan') }}"
-                        class="nav-link {{ Route::is('TampilKaryawan') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Karyawan
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('produks.index') }}"
-                        class="nav-link {{ Route::is('produks.index') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-capsules"></i>
-                        <p>
-                            Produk
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#"
-                        class="nav-link {{ Route::is('TampilPenjualan') || Route::is('TampilLaporan') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-money-bill-wave"></i>
-                        <p>
-                            Penjualan
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
+
+                <!-- Menu untuk Admin -->
+                @if (Auth::check() && Auth::user()->level === 'admin')
+                    <li class="nav-item">
+                        <a href="{{ route('Beranda') }}" class="nav-link {{ Route::is('Beranda') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>Beranda</p>
+                        </a>
+                    </li>
+                    <li class="nav-header">Menu</li>
+                    <li class="nav-item">
+                        <a href="{{ route('TampilAkun') }}"
+                            class="nav-link {{ Route::is('TampilAkun') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-user-circle"></i>
+                            <p>Akun</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('TampilKaryawan') }}"
+                            class="nav-link {{ Route::is('TampilKaryawan') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>Karyawan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('produks.index') }}"
+                            class="nav-link {{ Route::is('produks.index') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-capsules"></i>
+                            <p>Produk</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#"
+                            class="nav-link {{ Route::is('TampilPenjualan') || Route::is('TampilLaporan') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-money-bill-wave"></i>
+                            <p>Penjualan<i class="right fas fa-angle-left"></i></p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('TampilPenjualan') }}"
+                                    class="nav-link {{ Route::is('TampilPenjualan') ? 'active' : '' }}">
+                                    <i class="far fa-calendar-alt nav-icon"></i>
+                                    <p>Penjualan</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('TampilLaporan') }}"
+                                    class="nav-link {{ Route::is('TampilLaporan') ? 'active' : '' }}">
+                                    <i class="fas fa-book nav-icon"></i>
+                                    <p>Laporan</p>
+                                </a>
+                            </li>
+                        </ul>
                         <li class="nav-item">
-                            <a href="{{ route('TampilPenjualan') }}"
-                                class="nav-link {{ Route::is('TampilPenjualan') ? 'active' : '' }}">
-                                <i class="far fa-calendar-alt nav-icon"></i>
-                                <p>Penjualan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('TampilLaporan') }}"
-                                class="nav-link {{ Route::is('TampilLaporan') ? 'active' : '' }}">
+                            <a href="{{ route('TampilTPK') }}"
+                                class="nav-link {{ Route::is('TampilTPK') ? 'active' : '' }}">
                                 <i class="fas fa-book nav-icon"></i>
-                                <p>Laporan</p>
+                                <p>Produk Terbaik</p>
                             </a>
                         </li>
-                    </ul>
-                <div style="margin-bottom: 100px"></div>
+                    </li>
+
+                    <!-- Menu untuk Karyawan -->
+                @elseif (Auth::check() && Auth::user()->level === 'karyawan')
+                    <li class="nav-item">
+                        <a href="{{ route('produks.index') }}"
+                            class="nav-link {{ Route::is('produks.index') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-capsules"></i>
+                            <p>Produk</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('TampilPenjualan') }}"
+                            class="nav-link {{ Route::is('TampilPenjualan') ? 'active' : '' }}">
+                            <i class="far fa-calendar-alt nav-icon"></i>
+                            <p>Penjualan</p>
+                        </a>
+                    </li>
+                @endif
                 <li class="nav-item">
                     <form id="logoutForm" action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="button" class="nav-link" onclick="confirmLogout()">
-                            <i class="fas fa-book nav-icon"></i>
+                        <button type="button" onclick="hapus(this)" class="nav-link">
+                            <i class="fas fa-sign-out-alt nav-icon"></i>
                             <p>Logout</p>
                         </button>
                     </form>
-                </li>
                 </li>
             </ul>
         </nav>
@@ -112,10 +128,3 @@
     </div>
     <!-- /.sidebar -->
 </aside>
-<script>
-    function confirmLogout() {
-        if (confirm("Apakah Anda yakin ingin logout?")) {
-            document.getElementById('logoutForm').submit();
-        }
-    }
-</script>

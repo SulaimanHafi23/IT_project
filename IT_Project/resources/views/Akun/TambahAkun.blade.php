@@ -14,13 +14,9 @@
                     </ol>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
-        @if ($errors->has('username'))
-            <div class="alert alert-danger">
-                {{ $errors->first('username') }}
-            </div>
-        @endif
+        </div>
     </section>
+
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -30,56 +26,64 @@
                             <h3 class="card-title">Form Input Data Akun</h3>
                         </div>
                         <div class="card-body">
-
-                            <form method="POST" action="{{ route('TambahAkun') }}">
+                            <form action="{{ route('buatAkun') }}" method="post">
                                 @csrf
-
                                 <!-- Username -->
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Username</label>
-                                    {{-- <input type="text" class="form-control" id="name" name="name" required> --}}
-                                    <x-input id="name" class="form-control" type="text" name="name"
-                                        :value="old('name')" required autofocus autocomplete="name" />
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
+                                    @error('name')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
 
-                                <!-- email -->
+                                <!-- Email -->
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">email</label>
-                                    {{-- <input type="text" class="form-control" id="email" name="email" required> --}}
-                                    <x-input id="email" class="form-control" type="email" name="email"
-                                        :value="old('email')" required autocomplete="username" />
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required>
+                                    @error('email')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
 
                                 <!-- Password -->
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
-                                    {{-- <input type="password" class="form-control" id="password" name="password" required> --}}
-                                    <x-input id="password" class="form-control" type="password" name="password" required
-                                        autocomplete="new-password" />
-                                </div>
-
-                                <!-- Level -->
-                                <div class="mb-3">
-                                    <label class="form-label">Level</label><br>
-                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                        <label class="btn bg-olive active">
-                                            <input type="radio" name="level" id="option_b1" autocomplete="off"
-                                                value="admin" required>admin
-                                        </label>
-                                        <label class="btn bg-olive">
-                                            <input type="radio" name="level" id="option_b2" autocomplete="off"
-                                                value="karyawan" required>karyawan
-                                        </label>
-                                    </div>
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" required>
+                                    @error('password')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
 
                                 <!-- Checkbox Show Password -->
                                 <input type="checkbox" onclick="togglePassword()"> Show Password
                                 <br>
 
+                                <!-- Level -->
+                                <div class="mb-3">
+                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                        <label class="btn bg-olive @if(old('level') == 'admin') active @endif">
+                                            <input type="radio" name="level" id="option_b1" autocomplete="off" value="admin" @if(old('level') == 'admin') checked @endif required>admin
+                                        </label>
+                                        <label class="btn bg-olive @if(old('level') == 'karyawan') active @endif">
+                                            <input type="radio" name="level" id="option_b2" autocomplete="off" value="karyawan" @if(old('level') == 'karyawan') checked @endif required>karyawan
+                                        </label>
+                                    </div>
+                                    @error('level')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
                                 <!-- Submit Button -->
                                 <button type="submit" class="btn btn-primary">Submit</button>
-
                                 <a href="{{ route('TampilAkun') }}" class="btn btn-secondary">Batal</a>
                             </form>
                         </div>
@@ -90,11 +94,11 @@
     </div>
     <script>
         function togglePassword() {
-            const passwordField = document.getElementById("password", "password_confirmation"); // Mengacu ke ID "password"
+            const passwordField = document.getElementById("password");
             if (passwordField.type === "password") {
-                passwordField.type = "text"; // Menampilkan password
+                passwordField.type = "text";
             } else {
-                passwordField.type = "password"; // Menyembunyikan password
+                passwordField.type = "password";
             }
         }
     </script>

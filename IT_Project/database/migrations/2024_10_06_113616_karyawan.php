@@ -22,7 +22,7 @@ return new class extends Migration
             $table->decimal('Gaji', 10, 2);
             $table->date('Tanggal_Masuk');
             $table->string('Gambar_Karyawan')->nullable();
-            $table->foreignId('Id_User')->constrained('users')->onDelete('cascade');
+            $table->foreignId('Id_User')->constrained('users');
             $table->timestamps();
         });
     }

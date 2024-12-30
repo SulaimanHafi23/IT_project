@@ -14,13 +14,6 @@
                 </div>
             </div>
         </div><!-- /.container-fluid -->
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <i class="bi bi-check-square-fill"></i>
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
     </section>
 
     <section class="content">
@@ -34,11 +27,6 @@
                                 <!-- Tombol Tambah Laporan -->
                                 <a href="{{ route('TambahLaporan') }}">
                                     <button type="button" class="btn btn-primary">Tambah Laporan</button>
-                                </a>
-                                
-                                <!-- Tombol Cetak Laporan -->
-                                <a href="{{ route('laporan.cetak') }}" target="_blank">
-                                    <button type="button" class="btn btn-secondary">Cetak Laporan</button>
                                 </a>
                             </div>
                         </div>
@@ -66,11 +54,11 @@
                                                 <a href="{{ route('EditLaporan', $item->Id_Laporan) }}"
                                                     class="btn btn-warning"><i class="fas fa-edit"></i></a>
                                                 <form action="{{ route('DeleteLaporan', $item->Id_Laporan) }}"
-                                                    method="POST" style="display:inline;"
-                                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus laporan ini?');">
+                                                    method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                    <button type="button" onclick="hapus(this)" class="btn btn-danger"><i
+                                                            class="fas fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

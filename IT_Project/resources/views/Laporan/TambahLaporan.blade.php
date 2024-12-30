@@ -16,6 +16,7 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
+    
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -30,15 +31,24 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="tanggal_laporan">Tanggal Laporan</label>
-                                        <input type="date" name="tanggal_laporan" class="form-control" required>
+                                        <input type="date" name="tanggal_laporan" class="form-control @error('tanggal_laporan') is-invalid @enderror" required>
+                                        @error('tanggal_laporan')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="tanggal_mulai">Tanggal Mulai</label>
-                                        <input type="date" name="tanggal_mulai" class="form-control" required>
+                                        <input type="date" name="tanggal_mulai" class="form-control @error('tanggal_mulai') is-invalid @enderror" required>
+                                        @error('tanggal_mulai')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="tanggal_akhir">Tanggal Akhir</label>
-                                        <input type="date" name="tanggal_akhir" class="form-control" required>
+                                        <input type="date" name="tanggal_akhir" class="form-control @error('tanggal_akhir') is-invalid @enderror" required>
+                                        @error('tanggal_akhir')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                     <a href="{{ route('TampilLaporan') }}" class="btn btn-secondary">Batal</a>

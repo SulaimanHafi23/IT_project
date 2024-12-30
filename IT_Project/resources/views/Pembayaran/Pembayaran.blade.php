@@ -80,10 +80,6 @@
                                     </table>
                                 </div>
                                 <div class="text-center mt-2">
-                                    <form action="{{route('LihatPembayaran')}}" method="get">
-                                        <button type="submit">lanjutkan</button>
-                                        <p>{{$snapToken}}</p>
-                                    </form>
                                     <button id="pay-button" class="btn btn-primary">bayar</button>
                                 </div>
                             </div>
@@ -100,20 +96,46 @@
           // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
           window.snap.pay('{{$snapToken}}', {
             onSuccess: function(result){
-              /* You may add your own implementation here */
-              alert("payment success!"); console.log(result);
+                /* SweetAlert untuk menampilkan sukses */
+                Swal.fire({
+                    title: 'Pembayaran Berhasil',
+                    text: 'Pembayaran Anda telah berhasil diproses.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    // Redirect setelah pembayaran berhasil
+                    window.location.href = "{{ route('TampilPenjualan') }}";
+                });
+                console.log(result);
             },
             onPending: function(result){
-              /* You may add your own implementation here */
-              alert("wating your payment!"); console.log(result);
+              /* SweetAlert untuk menampilkan status menunggu */
+              Swal.fire({
+                    title: 'Menunggu Pembayaran',
+                    text: 'Pembayaran Anda sedang diproses. Silakan selesaikan pembayaran Anda.',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+                console.log(result);
             },
             onError: function(result){
-              /* You may add your own implementation here */
-              alert("payment failed!"); console.log(result);
+              /* SweetAlert untuk menampilkan error */
+              Swal.fire({
+                    title: 'Pembayaran Gagal',
+                    text: 'Terjadi kesalahan dalam proses pembayaran. Silakan coba lagi.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                console.log(result);
             },
             onClose: function(){
-              /* You may add your own implementation here */
-              alert('you closed the popup without finishing the payment');
+              /* SweetAlert untuk menampilkan jika pengguna menutup */
+              Swal.fire({
+                    title: 'Menutup Pembayaran',
+                    text: 'Anda menutup tampilan pembayaran tanpa menyelesaikan transaksi.',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                });
             }
           })
         });
